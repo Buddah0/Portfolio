@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <!-- Meta -->
   <meta charset="UTF-8" />
@@ -11,33 +12,48 @@
 
   <!-- Fonts: Modern sans + cursive for brand -->
   <!-- Inter for body, Pacifico for 'MattMoneyInc.' -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Pacifico&display=swap"
+    rel="stylesheet" />
 
   <!-- Icons: Font Awesome for social buttons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-cZDIQ..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-cZDIQ..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Optional: Bootstrap for responsive grid and utilities -->
   <!-- If you use Bootstrap, uncomment these two lines and see CSS comments below -->
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
   <!-- Styles -->
-  <link rel="stylesheet" href="main.css"/>
+  <!-- Vite handles CSS import via JS usually, but we can keep it here for clarity if allowed by Vite, 
+       or better: import it in main.js. But for now, let's link to the source file for standard web usage? 
+       Actually, standard Vite practice: <script type="module" src="/src/main.js"></script> and import CSS there.
+       BUT, to keep it simple and working as requested: -->
+  <!-- <link rel="stylesheet" href="/src/styles/main.css" /> -->
+  <!-- Better: Import CSS in JS in Vite. Let's do that in main.js step later. 
+       For now, we point to the file so it works if user opens normally? No, Vite requires module.
+       Let's stick to standard Vite: script module. -->
 
-  <!-- Anime.js (to be used later for scroll animations and sequencing) -->
-  <!-- Keep in place; we’ll integrate once design is locked -->
-  <script defer src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script type="module" src="/src/main.js"></script>
 </head>
+
 <body>
+  <!-- Fixed Background Layer -->
+  <div id="bg"></div>
+
   <!-- Header / Navbar -->
   <header class="navbarContainer" role="banner" aria-label="Primary">
     <div class="nav-inner">
       <a class="brand" href="index.html" aria-label="MattMoneyInc home">MattMoneyInc.</a>
       <nav class="nav-links" aria-label="Main navigation">
         <a class="nav-link" href="index.html">Home</a>
-        <a class="social-link" href="https://instagram.com/yourhandle" target="_blank" rel="noopener" aria-label="Instagram">
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#skills">Skills</a>
+        <a class="social-link" href="https://www.instagram.com/buddah__0/" target="_blank" rel="noopener"
+          aria-label="Instagram">
           <i class="fa-brands fa-instagram"></i>
         </a>
-        <a class="social-link" href="https://www.linkedin.com/in/yourhandle" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <a class="social-link" href="https://www.linkedin.com/in/bryan-m-bess/" target="_blank" rel="noopener"
+          aria-label="LinkedIn">
           <i class="fa-brands fa-linkedin"></i>
         </a>
       </nav>
@@ -46,39 +62,118 @@
 
   <!-- Hero -->
   <section class="section hero" id="hero">
-    <div class="hero-content fade-in">
+    <div class="hero-content reveal">
       <div class="hero-text">
         <h1 class="kicker">Hi! I'm Matthew. Glad to have you, here's a little about me:</h1>
         <div class="role-stack">
           <h2 class="role">Software Engineer / AI & Machine Learning</h2>
-          <p class="subhead">Automation is the name of the game! Working with AI and automation to keep things running while you simply walk.</p>
+          <p class="subhead">Automation is the name of the game! Working with AI and automation to keep things running
+            while you simply walk.</p>
           <p class="caption">College engineer working with AI tools for optimization and efficiency</p>
         </div>
       </div>
       <div class="hero-image">
-        <!-- Replace src with your actual uploaded image path -->
-        <img src="Me.jpg" alt="Portrait of Matthew" />
+        <!-- Vite serves public assets at root -->
+        <img src="/Me.jpg" alt="Portrait of Matthew" />
       </div>
     </div>
   </section>
 
   <!-- About -->
   <section class="section about" id="about">
-    <div class="container fade-in">
+    <div class="container reveal">
       <h3 class="section-title">So:</h3>
       <p class="body-copy">
-        I have been coding since 2019 with languages like HTML, CSS and JavaScript, and have only been improving my skillset since.
-        I have an Associates degree 🧑‍🎓 and am currently pursuing my B.S in Computer Science. My learning path has led me to to starter
-        languages like Python and Java, and now I am diving into AI and Machine Learning to see how I can leverage these tools for automation
-        and efficiency for both personal and professional projects. I am constantly learning and adapting to new technologies, and I am excited 
-        to see where this journey takes me as I continue to grow as a developer and problem solver.
+        I’ve been building with code since 2019—starting with HTML, CSS, and JavaScript, and steadily leveling up from
+        there. I earned my Associate’s degree and I’m currently pursuing a B.S. in Computer Science. Along the way I
+        added Python and Java to my toolkit, and lately I’ve been digging into AI and machine learning to build
+        automation that saves time and makes systems run smoother. I’m always learning, shipping, and iterating—excited
+        to keep turning ideas into useful software.
       </p>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="section projects" id="projects">
+    <div class="container reveal">
+      <div class="section-heading">
+        <h3 class="section-title">Projects</h3>
+        <p class="section-lead">A collection of technical deep-dives and creative tools.</p>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Project 1: Pocket Mechanic -->
+        <article class="project-card">
+          <header class="project-header">
+            <div class="project-date">Spring 2025</div>
+            <h4 class="project-title">Pocket Mechanic &#129302;</h4>
+            <p class="project-subtitle">AI Vehicle Diagnostic Assistant</p>
+          </header>
+          <p class="project-desc">
+            Built responsive web pages for a fictitious automotive shop using <strong>HTML</strong> and
+            <strong>CSS</strong>.
+            This project features an AI assistant designed to help students diagnose car problems affordably.
+            It simplifies complex issues into understandable language. This experience taught me the challenges of
+            training AI models and practical integration nuances.
+          </p>
+        </article>
+
+        <!-- Project 2: Prereq Validator -->
+        <article class="project-card">
+          <header class="project-header">
+            <div class="project-date">[December 2025 to Current]</div>
+            <h4 class="project-title">College Prerequisite Validator AI</h4>
+            <p class="project-subtitle">Automated Course Catalog Analysis Tool</p>
+          </header>
+          <div class="project-desc">
+            A tool that validates college course structures by converting catalogs into directed graphs to detect
+            structural issues.
+            <ul>
+              <li>Validates prerequisites using directed graphs (NetworkX) to find cycles and bottlenecks.</li>
+              <li>Interactive dashboard visualization using Cytoscape.js and HTMX.</li>
+              <li>REST API (FastAPI) for ingestion and async analysis.</li>
+            </ul>
+            <p><strong>Tech:</strong> Python, FastAPI, NetworkX, Cytoscape.js</p>
+          </div>
+          <div style="margin-top: auto; padding-top: 12px;">
+            <a href="https://github.com/Buddah0/Prereq-College-Validation-Ai" target="_blank" class="social-link"
+              style="display:inline-flex; gap:6px; align-items:center;">
+              <i class="fa-brands fa-github"></i> View Repo
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 3: Content AI -->
+        <article class="project-card">
+          <header class="project-header">
+            <div class="project-date">[December 2025 to Current]</div>
+            <h4 class="project-title">Content AI</h4>
+            <p class="project-subtitle">Automated Gameplay Highlight Engine</p>
+          </header>
+          <div class="project-desc">
+            An intelligent pipeline that detects high-energy moments in gameplay footage using audio-first signal
+            processing.
+            <ul>
+              <li>Audio-first detection using Librosa (HPSS + RMS) to isolate key events.</li>
+              <li>Production-grade FFmpeg rendering with smart merging and VFR safety.</li>
+              <li>Resumable batch processing queue with crash recovery (SQLite).</li>
+            </ul>
+            <p><strong>Tech:</strong> Python, FFmpeg, Librosa, SQLite, Pydantic</p>
+          </div>
+          <div style="margin-top: auto; padding-top: 12px;">
+            <a href="https://github.com/Buddah0/content-ai" target="_blank" class="social-link"
+              style="display:inline-flex; gap:6px; align-items:center;">
+              <i class="fa-brands fa-github"></i> View Repo
+            </a>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
   <!-- Skills -->
   <section class="section skills" id="skills">
-    <div class="container fade-in">
+    <div class="container reveal">
       <h3 class="section-title">My Skillset 🧠:</h3>
       <div class="skills-grid">
         <!-- Each card is a flex item, accessible and animated on scroll -->
@@ -139,31 +234,7 @@
     </div>
   </section>
 
-  <!-- Projects -->
-  <section class="section projects" id="projects">
-    <div class="container fade-in">
-      <div class="section-heading">
-        <h3 class="section-title">Projects</h3>
-        <div class="section-tag">Spring 2025</div>
-        <p class="section-lead">Built to scale into more down-card entries while keeping the same smooth fade.</p>
-      </div>
 
-      <div class="projects-grid">
-        <article class="project-card">
-          <header class="project-header">
-            <div class="project-date">Spring 2025</div>
-            <h4 class="project-title">Pocket Mechanic &#129302;</h4>
-            <p class="project-subtitle">Ai Vehichle Diagonistic assistant</p>
-          </header>
-          <p class="project-desc">
-            I Utilized <strong>HTML</strong>, <strong>CSS</strong>, to build and style responsive web pages for a fictiscious automotive shop.
-            This project was a final assignement centered around an Ai assisstant marketed to college students and people who could not afford repair shop costs.
-            It helps to diagnose car problems and explain the issue in way that anyone can understand. While never accomplished to fruition it taught me that Ai is not as easy to work with as I thought and training a model while fun is very challenging.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
 
   <!-- Footer -->
   <footer class="footer" role="contentinfo">
@@ -175,6 +246,7 @@
   <!-- Scripts -->
   <!-- Optional: Bootstrap JS if used -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> -->
-  <script defer src="main.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> -->
 </body>
+
 </html>
