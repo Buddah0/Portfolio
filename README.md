@@ -1,75 +1,119 @@
-# MattMoneyInc. Portfolio Website
+# Portfolio — Matthew Bess
 
-Welcome to my personal portfolio website!  
-This project showcases my journey as a Computer Science major, my evolving technical skillset, and my professional interests in **Software Engineering, AI, and Machine Learning**.
+> Software Engineer · AI & Machine Learning
+> Live: [buddah0.github.io/Portfolio](https://buddah0.github.io/Portfolio/)
 
----
-
-## 🚀 Features
-
-- **Modern Dark Theme**: Smooth gradients, light text on dark background for readability and style.
-- **Hero Section**: Bold introduction with aligned portrait and professional tagline.
-- **Responsive Navbar**: Brand name in cursive font, Home button, and social links (Instagram, LinkedIn).
-- **Scroll Animations**: Fade-in effects for sections as you scroll down (ready for Anime.js integration).
-- **About Section**: Background on my coding journey since 2019, education, and current studies.
-- **Skills Showcase**: Flexbox/grid layout with icons and emojis to highlight my technical stack.
-- **Accessibility**: Semantic HTML, ARIA labels, and respect for reduced motion preferences.
+A performance-first developer portfolio built with modern vanilla web technologies. Designed to demonstrate engineering discipline through deliberate architecture decisions, render-pipeline optimizations, and automated CI/CD deployment.
 
 ---
 
-## 🛠️ Tech Stack
+## Technology Stack
 
-- **HTML5** – Semantic structure
-- **CSS3** – Responsive layouts, gradients, animations
-- **JavaScript (ES6+)** – Interactivity and scroll effects
-- **Bootstrap (optional)** – Utility classes and responsive grid
-- **Anime.js (planned)** – Advanced scroll animations and transitions
-
----
-
-## 📸 Media
-
-- Hero portrait image (aligned with intro text)
-- Skillset icons and emojis for visual engagement
+| Layer | Technology | Rationale |
+| --- | --- | --- |
+| Build tooling | [Vite 6](https://vitejs.dev/) | Sub-second HMR, ES module-native, optimized production bundling |
+| Animation engine | [Anime.js v4](https://animejs.com/) ESM | Tree-shakeable, typed, manual engine control via `engine.update()` |
+| Rendering | HTML5 Canvas API | GPU-accelerated rasterization; zero DOM overhead for background FX |
+| Styling | CSS3 Custom Properties + Grid/Flexbox | Single source of truth for theming; no runtime CSS-in-JS cost |
+| Language | Vanilla ES2022+ (modules) | Zero framework overhead; demonstrates core JS proficiency |
+| Deployment | GitHub Actions → GitHub Pages | Reproducible, automated CI/CD; artifact-based Pages deployment |
 
 ---
 
-## 📂 Project Structure
+## Architecture Highlights
+
+### Single Animation Loop
+
+The canvas background and Anime.js tween engine share **one** `requestAnimationFrame` loop — no competing RAF sources. `engine.useDefaultMainLoop = false` is set before any `animate()` call to prevent Anime.js from waking its internal loop, and `engine.update()` is called manually each tick.
+
+```text
+rAF tick
+  ├─ FPS gate (30 fps cap for background)
+  ├─ state.scrollZ += SCROLL_SPEED * delta   (manual, frame-rate-independent)
+  ├─ engine.update()                          (advances scanline / glow tweens)
+  └─ render()                                 (canvas draw — uses cached gradients)
+```
+
+### Render-Pipeline Optimizations
+
+- **Gradient caching** — `CanvasGradient` objects (sky, floor, sun glow, vignette) are built once in `handleResize()` and reused every frame, eliminating ~240 GPU allocations/sec at 60 fps
+- **DPR cap** — `devicePixelRatio` clamped to `2` to prevent 4K/Retina devices from rasterizing a ×16 canvas backing store
+- **FPS cap at 30** — background renders at half the display refresh rate, freeing the compositor thread during scroll
+- **Debounced resize** — `handleResize()` deferred 100 ms to coalesce resize bursts into a single canvas + star rebuild
+- **Tab-hidden pause** — `visibilitychange` listener cancels the rAF loop when the tab is backgrounded; resumes cleanly with `lastTime = 0` to prevent delta spikes
+
+### Scroll Performance
+
+Scroll reveals use `IntersectionObserver` — no `scroll` event listeners on the main thread. All event listeners that could affect scrolling use `{ passive: true }` where applicable.
+
+### Accessibility
+
+- `prefers-reduced-motion` respected: Anime.js tweens are skipped and the grid scrolls in place
+- Semantic HTML5 landmarks (`<header>`, `<nav>`, `<section>`, `<footer>`) with ARIA labels
+- Full keyboard navigation; visible focus states
+- High-contrast text meeting WCAG AA contrast ratios
 
 ---
 
-## 🎨 Design Principles
+## Local Development
 
-- **UX First**: Easy to read, smooth scrolling, minimal distractions.
-- **Consistency**: Dark background, light lettering, cohesive typography.
-- **Professional Appeal**: Recruiters and peers can quickly grasp skills and background.
+```bash
+# Install dependencies
+npm install
 
----
+# Start dev server (http://localhost:5173)
+npm run dev
 
-## 📖 Future Enhancements
+# Production build → dist/
+npm run build
 
-- Integrate **Anime.js Scroll Observer** for richer animations.
-- Add **Projects Section** with case studies and links.
-- Include **Contact Form** or call-to-action for networking.
-- Optimize performance (image compression, preload key assets).
-
----
-
-## 👨‍💻 About Me
-
-Hi! I’m **Matthew**, a Computer Science major passionate about **AI, automation, and optimization**.  
-I’ve been coding since 2019, earned my Associate’s 🧑‍🎓, and am now pursuing my B.S. in Computer Science.  
-My goal is to build tools that make systems run seamlessly while people focus on what matters.
+# Preview production build locally
+npm run preview
+```
 
 ---
 
-## 🔗 Connect
+## Deployment
 
-- [Instagram](https://instagram.com/yourhandle)
-- [LinkedIn](https://www.linkedin.com/in/yourhandle)
+The site deploys automatically to GitHub Pages via GitHub Actions on every push to `main`.
+
+**Pipeline:** `push to main` → `npm ci` → `npm run build` → upload `dist/` as Pages artifact → deploy
+
+Live URL: `https://buddah0.github.io/Portfolio/`
+
+### Custom Domain (future)
+
+1. Add a `CNAME` file to `public/` containing the bare domain (e.g. `matthew.dev`)
+2. Update `vite.config.js`: change `base` from `'/Portfolio/'` to `'/'`
+3. Configure DNS: `A` records to GitHub Pages IPs, or `CNAME` to `buddah0.github.io`
+4. Enable "Enforce HTTPS" in repository Settings → Pages
 
 ---
 
-## 📜 License
+## Project Structure
 
-This project is open-source and available under the MIT License.
+```text
+.
+├── .github/
+│   └── workflows/
+│       └── deploy.yml          # CI/CD: build + GitHub Pages deployment
+├── public/
+│   └── Me2.png                 # Static assets (served at root, copied to dist/)
+├── src/
+│   ├── background/
+│   │   └── synthwaveGrid.js    # Canvas animation: synthwave perspective grid
+│   ├── components/
+│   │   └── BackgroundPixelDust.js  # Particle system (reserved)
+│   ├── styles/
+│   │   └── main.css            # Global styles, CSS custom properties, layout
+│   └── main.js                 # App entry: orchestrates init, scroll reveals, nav
+├── index.html                  # Document entry point
+├── vite.config.js              # Vite config: base path for GitHub Pages
+└── package.json
+```
+
+---
+
+## License
+
+MIT © 2025 Matthew Bess
