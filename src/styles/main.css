@@ -457,6 +457,25 @@ footer,
   text-align: center;
 }
 
+.card-click-hint {
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #18FFFF;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(24, 255, 255, 0.5);
+  transition: text-shadow 0.3s ease, color 0.3s ease;
+}
+
+.project-card:hover .card-click-hint {
+  color: #ffffff;
+  text-shadow:
+    0 0 8px #18FFFF,
+    0 0 20px #18FFFF,
+    0 0 40px rgba(24, 255, 255, 0.6);
+}
+
 .project-subtitle {
   margin: 0 0 4px;
   color: var(--accent);
