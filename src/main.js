@@ -1,92 +1,86 @@
-import './styles/main.css';
-import { animate } from 'animejs';
-import { initPixelDust } from './components/BackgroundPixelDust.js';
-import { mountSynthwaveGrid } from './background/synthwaveGrid.js';
+import './styles/oot/tokens.css';
+import './styles/oot/base.css';
+import './styles/oot/textures.css';
+import './styles/oot/hud.css';
+import './styles/oot/slots.css';
+import './styles/oot/items.css';
+import './styles/oot/detail.css';
+import './styles/oot/equipment.css';
+import './styles/oot/collection.css';
+import './styles/oot/system.css';
+import './styles/oot/title.css';
+import './styles/oot/mobile.css';
+import { initTabs } from './oot/tabs.js';
+import { initSlotGrid } from './oot/slotGrid.js';
+import { initDetailPane } from './oot/detailPane.js';
+import { initPrompts } from './oot/prompts.js';
+import { initTitleScreen } from './oot/titleScreen.js';
 
-// --- Configuration ---
-const PREFERS_REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const SELECTORS = {
-  bg: '#bg',
-  reveal: '.reveal',
-  sections: '.section',
-  navLinks: '.nav-link, .brand',
-};
-
-// --- Background Animation ---
-const initBackground = () => {
-  // initPixelDust(SELECTORS.bg); // Disabling old background
-  mountSynthwaveGrid();
-};
-
-// --- Scroll Reveals ---
-const initScrollReveal = () => {
-  const targets = document.querySelectorAll(SELECTORS.reveal);
-
-  if (PREFERS_REDUCED_MOTION) {
-    targets.forEach(el => {
-      el.style.opacity = 1;
-      el.style.transform = 'none';
-    });
-    return;
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const delay = parseInt(el.dataset.delay, 10) || 0;
-        setTimeout(() => {
-          el.classList.add('reveal-visible');
-        }, delay);
-        observer.unobserve(el);
-      }
-    });
-  }, {
-    threshold: 0.05,
-    rootMargin: '0px 0px -20px 0px',
-  });
-
-  targets.forEach(el => observer.observe(el));
-};
-
-// --- Hash Nav Shine ---
-const initHashNav = () => {
-  window.addEventListener('hashchange', () => {
-    const id = window.location.hash;
-    if (id) {
-      const target = document.querySelector(id);
-      if (target) {
-        target.classList.add('is-targeted');
-        setTimeout(() => target.classList.remove('is-targeted'), 1500);
-      }
-    }
-  });
-};
-
-// --- Stagger Grid Items ---
-const initGrids = () => {
-  const cards = document.querySelectorAll('.skill-card, .project-card');
-  cards.forEach((card, index) => {
-    card.classList.add('reveal');
-    card.dataset.delay = (index % 4) * 100;
-  });
-};
-
-// --- Flip Project Cards ---
-const initFlipCards = () => {
-  document.querySelectorAll('.project-card').forEach(card => {
-    if (!card.querySelector('.card-inner')) return;
-    card.addEventListener('click', () => {
-      card.classList.toggle('is-flipped');
-    });
-  });
-};
-
-// --- Init ---
 document.addEventListener('DOMContentLoaded', () => {
-  initGrids();
-  initScrollReveal();
-  initFlipCards();
-  initBackground();
-  initHashNav();
+  // Keep year counts current (HTML holds a sensible fallback).
+  document.querySelectorAll('[data-years-since]').forEach((el) => {
+    el.textContent = String(new Date().getFullYear() - Number(el.dataset.yearsSince));
+  });
+
+  const tabs = initTabs();
+  initPrompts(document.querySelector('.prompts'));
+  let title = null;
+
+  // Portrait layout: Items / Collection panes become a bottom sheet that opens on Select.
+  const PORTRAIT = window.matchMedia('(max-aspect-ratio: 1/1)');
+  const isSheet = (el) => !!el?.matches('.detail:not(.sys-card):not(.detail--oval)');
+
+  // Each menu screen: a slot grid (cursor) driving a detail pane.
+  document.querySelectorAll('.screen [data-slot-grid]').forEach((grid) => {
+    const screen = grid.closest('[role="tabpanel"]');
+    const tab = document.getElementById(screen.getAttribute('aria-labelledby'));
+    const paneEl = screen.querySelector('.detail');
+    const pane = paneEl ? initDetailPane(paneEl) : null;
+    let slots = null;
+
+    const closeSheet = ({ focus = true } = {}) => {
+      if (!paneEl?.classList.contains('is-open')) return;
+      paneEl.classList.remove('is-open');
+      if (focus) slots?.cursor.focus({ preventScroll: true });
+    };
+
+    slots = initSlotGrid(grid, {
+      onCursor: (slot) => pane?.show(slot.getAttribute('aria-controls')),
+      // Select (click / tap / Enter / Space): run the slot's action, open the sheet on phones,
+      // or step into the pane's link on wide screens.
+      onSelect: (slot) => {
+        if (slot.dataset.action === 'title') { title?.show(); return; }
+        const item = pane?.show(slot.getAttribute('aria-controls'));
+        if (PORTRAIT.matches && isSheet(paneEl)) {
+          paneEl.classList.add('is-open');
+          paneEl.querySelector('.sheet-close')?.focus({ preventScroll: true });
+          return;
+        }
+        item?.querySelector('.detail__link')?.focus();
+      },
+      // Back (Esc) from the grid: up to the tab bar.
+      onBack: () => tab?.focus(),
+    });
+
+    paneEl?.querySelector('.sheet-close')?.addEventListener('click', () => closeSheet());
+
+    // Back (Esc) from the pane: close the sheet (if open) and return to the slot under the cursor.
+    paneEl?.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && slots) {
+        e.preventDefault();
+        paneEl.classList.remove('is-open');
+        slots.cursor.focus({ preventScroll: true });
+      }
+    });
+
+    document.addEventListener('screenchange', () => closeSheet({ focus: false }));
+    PORTRAIT.addEventListener('change', () => closeSheet({ focus: false }));
+  });
+
+  title = initTitleScreen({
+    title: document.getElementById('title-screen'),
+    gated: [document.querySelector('.hud'), document.querySelector('.screens'), document.querySelector('.prompts')],
+    tabs,
+    screenIds: [...document.querySelectorAll('[role="tab"]')].map((t) => t.id.replace(/^tab-/, '')),
+  });
 });

@@ -2,260 +2,575 @@
 <html lang="en">
 
 <head>
-  <!-- Meta -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Matthew's portfolio | Software Engineer / AI & Machine Learning" />
-
-  <!-- Title -->
   <title>Matthew | Software Engineer / AI & Machine Learning</title>
 
-  <!-- Fonts: Modern sans + cursive for brand -->
-  <!-- Inter for body, Pacifico for 'MattMoneyInc.' -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Pacifico&display=swap"
-    rel="stylesheet" />
+  <!-- Font: Ysabeau Office (SIL OFL), closest free match to the menu typeface -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:wght@500..900&display=swap" rel="stylesheet" />
 
-  <!-- Icons: Font Awesome for social buttons -->
+  <!-- Icons: Font Awesome for social links -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Optional: Bootstrap for responsive grid and utilities -->
-  <!-- If you use Bootstrap, uncomment these two lines and see CSS comments below -->
-  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-
-  <!-- Styles: link tag loads CSS directly (works without Vite); JS import handles bundling when Vite runs -->
-  <link rel="stylesheet" href="src/styles/main.css" />
+  <!-- Show the title screen before first paint when no screen is linked (no flash of the menu). -->
+  <script>if (!location.hash) document.documentElement.classList.add('show-title');</script>
   <script type="module" src="/src/main.js"></script>
 </head>
 
-<body>
-  <!-- Fixed Background Layer -->
-  <div id="bg"></div>
+<body class="oot">
+  <div class="menu" id="menu">
 
-  <!-- Header / Navbar -->
-  <header class="navbarContainer" role="banner" aria-label="Primary">
-    <div class="nav-inner">
-      <a class="brand" href="index.html" aria-label="MattMoneyInc home">MattMoneyInc.</a>
-      <nav class="nav-links" aria-label="Main navigation">
-        <a class="nav-link" href="index.html">Home</a>
-        <a class="nav-link" href="#projects">Projects</a>
-        <a class="nav-link" href="#skills">Skills</a>
-        <a class="social-link" href="https://www.instagram.com/buddah__0/" target="_blank" rel="noopener"
-          aria-label="Instagram">
-          <i class="fa-brands fa-instagram"></i>
-        </a>
-        <a class="social-link" href="https://www.linkedin.com/in/bryan-m-bess/" target="_blank" rel="noopener"
-          aria-label="LinkedIn">
-          <i class="fa-brands fa-linkedin"></i>
-        </a>
-        <a class="social-link" href="https://github.com/Buddah0" target="_blank" rel="noopener"
-          aria-label="GitHub">
-          <i class="fa-brands fa-github"></i>
-        </a>
-      </nav>
-    </div>
-  </header>
+    <!-- ===== HUD header ===== -->
+    <header class="hud" role="banner">
+      <h1 class="sr-only">Matthew — Software Engineer / AI &amp; Machine Learning</h1>
+      <div class="hud__band">
+        <div class="hud__vitals" aria-hidden="true">
+          <div class="hearts"></div>
+          <div class="magic"><span class="magic__fill"></span></div>
+        </div>
 
-  <!-- Hero -->
-  <section class="section hero" id="hero">
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1 class="kicker">Hi! I'm Matthew. Glad to have you, here's a little about me:</h1>
-        <div class="role-stack">
-          <h2 class="role">Software Engineer / AI & Machine Learning</h2>
-          <p class="subhead">Automation is the name of the game! Working with AI and automation to keep things running
-            while you simply walk.</p>
-          <p class="caption">College engineer working with AI tools for optimization and efficiency</p>
+        <nav class="hud__tabbar" aria-label="Menu screens">
+          <button class="shoulder" type="button" data-step="-1" aria-label="Previous screen"><span class="glyph-pad">L</span><span class="glyph-key">Q</span></button>
+          <div class="tabs" role="tablist">
+            <button class="tab" role="tab" type="button" id="tab-collection" aria-controls="panel-collection" aria-selected="false" tabindex="-1">Collection</button>
+            <button class="tab" role="tab" type="button" id="tab-equipment" aria-controls="panel-equipment" aria-selected="false" tabindex="-1">Equipment</button>
+            <button class="tab" role="tab" type="button" id="tab-items" aria-controls="panel-items" aria-selected="true">Items</button>
+            <button class="tab" role="tab" type="button" id="tab-system" aria-controls="panel-system" aria-selected="false" tabindex="-1">System</button>
+          </div>
+          <button class="shoulder" type="button" data-step="1" aria-label="Next screen"><span class="glyph-pad">R</span><span class="glyph-key">E</span></button>
+        </nav>
+
+        <div class="hud__counter" aria-label="3 projects">
+          <svg class="gem" viewBox="0 0 40 40" aria-hidden="true"><use href="#gem" /></svg>
+          <span class="counter__value">3</span><span class="counter__max">/∞</span>
         </div>
       </div>
-      <div class="hero-image">
-        <!-- Vite serves public assets at root -->
-        <img src="/Update_Portrait.jpg" alt="Portrait of Matthew" />
-      </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- About -->
-  <section class="section about" id="about">
-    <div class="container">
-      <h3 class="section-title">So:</h3>
-      <p class="body-copy">
-        I’ve been building with code since 2019—starting with HTML, CSS, and JavaScript, and steadily leveling up from
-        there. I earned my Associate’s degree and I’m currently pursuing a B.S. in Computer Science. Along the way I
-        added Python and Java to my toolkit, and lately I’ve been digging into AI and machine learning to build
-        automation that saves time and makes systems run smoother. I’m always learning, shipping, and iterating—excited
-        to keep turning ideas into useful software.
-      </p>
-    </div>
-  </section>
+    <!-- ===== Screens ===== -->
+    <main class="screens">
 
-  <!-- Projects -->
-  <section class="section projects" id="projects">
-    <div class="container">
-      <div class="section-heading">
-        <h3 class="section-title">Projects</h3>
-        <p class="section-lead">A collection of technical deep-dives and creative tools.</p>
-      </div>
+      <!-- Collection = About -->
+      <section class="screen screen--collection" role="tabpanel" id="panel-collection" aria-labelledby="tab-collection" hidden>
+        <h2 class="sr-only">About me</h2>
 
-      <div class="projects-grid">
-        <!-- Project 1: Pocket Mechanic (flip card) -->
-        <article class="project-card">
-          <div class="card-inner">
-            <div class="card-front">
-              <div class="project-date">Spring 2025</div>
-              <h4 class="project-title">Pocket Mechanic &#129302;</h4>
-              <p class="card-click-hint">Click me!</p>
+        <!-- Detail pane (left) -->
+        <div class="detail detail--left pane-dark">
+          <button class="sheet-close" type="button">Back <span class="cap">B</span></button>
+          <article class="detail__item" id="about-intro">
+            <div class="detail__art" aria-hidden="true"><i class="fa-solid fa-heart"></i></div>
+            <h3 class="detail__title">Hi! I'm Matthew</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__meta">Software Engineer / AI &amp; Machine Learning</p>
+            <div class="detail__body">
+              <p>Automation is the name of the game! Working with AI and automation to keep things running while you simply walk.</p>
+              <p>College engineer working with AI tools for optimization and efficiency.</p>
             </div>
-            <div class="card-back">
-              <p class="project-subtitle">AI Vehicle Diagnostic Assistant</p>
-              <p class="project-desc">
-                Built responsive web pages for a fictitious automotive shop using <strong>HTML</strong> and
-                <strong>CSS</strong>.
+          </article>
+          <article class="detail__item" id="about-since" hidden>
+            <div class="detail__art" aria-hidden="true"><i class="fa-solid fa-code"></i></div>
+            <h3 class="detail__title">Coding Since 2019</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__meta"><span data-years-since="2019">7</span> years and counting</p>
+            <div class="detail__body">
+              <p>I’ve been building with code since 2019—starting with HTML, CSS, and JavaScript, and steadily leveling up from there.</p>
+            </div>
+          </article>
+          <article class="detail__item" id="about-associates" hidden>
+            <div class="detail__art" aria-hidden="true"><i class="fa-solid fa-scroll"></i></div>
+            <h3 class="detail__title">Associate’s in Computer Science</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__meta">Earned</p>
+            <div class="detail__body">
+              <p>Earned my Associate’s degree in Computer Science, the first big milestone on the road to a B.S. in Information Technology.</p>
+            </div>
+          </article>
+          <article class="detail__item" id="about-bs" hidden>
+            <div class="detail__art" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
+            <h3 class="detail__title">B.S. in Information Technology</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__meta">In progress</p>
+            <div class="detail__body">
+              <p>Currently pursuing a B.S. in Information Technology while building real projects along the way.</p>
+            </div>
+          </article>
+          <article class="detail__item" id="about-first" hidden>
+            <div class="detail__art" aria-hidden="true"><i class="fa-solid fa-seedling"></i></div>
+            <h3 class="detail__title">First Steps</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__meta">HTML · CSS · JavaScript</p>
+            <div class="detail__body">
+              <p>Where it all started in 2019: HTML, CSS, and JavaScript.</p>
+            </div>
+          </article>
+          <article class="detail__item" id="about-levelup" hidden>
+            <div class="detail__art" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></div>
+            <h3 class="detail__title">Leveling Up</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__meta">Python · Java</p>
+            <div class="detail__body">
+              <p>Along the way I added Python and Java to my toolkit.</p>
+            </div>
+          </article>
+          <article class="detail__item" id="about-quest" hidden>
+            <div class="detail__art" aria-hidden="true"><i class="fa-solid fa-robot"></i></div>
+            <h3 class="detail__title">Latest Quest</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__meta">AI &amp; Machine Learning</p>
+            <div class="detail__body">
+              <p>Lately I’ve been digging into AI and machine learning to build automation that saves time and makes systems run smoother.</p>
+            </div>
+          </article>
+          <article class="detail__item" id="about-ai-workflow" hidden>
+            <div class="detail__art" aria-hidden="true"><svg class="art-claude" viewBox="0 0 24 24"><use href="#claude-mark" /></svg></div>
+            <h3 class="detail__title">AI-Powered Workflow</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__meta">Brainstorm. Conceptualize. Realize</p>
+            <div class="detail__body">
+              <p>Using AI to speed up workflows and stay ahead of the game in all the ways that matter! Speed is key, but caution pays dividends.</p>
+            </div>
+          </article>
+          <article class="detail__item" id="about-shipping" hidden>
+            <div class="detail__art" aria-hidden="true"><i class="fa-solid fa-rocket"></i></div>
+            <h3 class="detail__title">Always Shipping</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__meta">Learn · Ship · Iterate</p>
+            <div class="detail__body">
+              <p>I’m always learning, shipping, and iterating—excited to keep turning ideas into useful software.</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- Collectibles board (right). Gold = in progress / current. -->
+        <div class="board board--collection slot-board cloth-brown" data-slot-grid>
+          <button class="page-arrow page-arrow--next" type="button" data-step="1" tabindex="-1" aria-hidden="true" style="left: calc(1000 * var(--px)); top: calc(500 * var(--px))"></button>
+
+          <button class="slot slot--round" type="button" style="--x: 990; --y: 228; --w: 192; --h: 192" aria-controls="about-since">
+            <i class="slot__icon fa-solid fa-code" aria-hidden="true"></i>
+            <span class="sr-only">Coding since 2019:</span>
+            <span class="slot__count slot__count--below is-max" data-years-since="2019">7</span>
+            <span class="sr-only">years</span>
+          </button>
+          <button class="slot slot--heart" type="button" style="--x: 1268; --y: 226; --w: 254; --h: 226" data-cursor-home aria-label="About me: Hi! I'm Matthew" aria-controls="about-intro">
+            <i class="slot__icon fa-solid fa-heart" aria-hidden="true"></i>
+          </button>
+
+          <button class="slot slot--feature" type="button" style="--x: 950; --y: 566; --w: 256; --h: 172" aria-label="Associate’s in Computer Science (earned)" aria-controls="about-associates">
+            <i class="slot__icon fa-solid fa-scroll" aria-hidden="true"></i>
+          </button>
+          <button class="slot slot--feature is-equipped" type="button" style="--x: 950; --y: 792; --w: 256; --h: 172" aria-label="B.S. in Information Technology (in progress)" aria-controls="about-bs">
+            <i class="slot__icon fa-solid fa-graduation-cap" aria-hidden="true"></i>
+          </button>
+
+          <button class="slot slot--hex is-glow" type="button" style="--x: 1262; --y: 526; --w: 228; --h: 128" aria-label="First Steps: HTML, CSS and JavaScript" aria-controls="about-first">
+            <i class="slot__icon fa-solid fa-seedling" aria-hidden="true"></i>
+          </button>
+          <button class="slot slot--hex is-glow" type="button" style="--x: 1262; --y: 688; --w: 228; --h: 128" aria-label="Leveling Up: Python and Java" aria-controls="about-levelup">
+            <i class="slot__icon fa-solid fa-layer-group" aria-hidden="true"></i>
+          </button>
+          <button class="slot slot--hex is-glow is-equipped" type="button" style="--x: 1262; --y: 850; --w: 228; --h: 128" aria-label="Latest Quest: AI and Machine Learning (current)" aria-controls="about-quest">
+            <i class="slot__icon fa-solid fa-robot" aria-hidden="true"></i>
+          </button>
+
+          <span class="slot slot--hex-tall is-locked" style="--x: 1578; --y: 214; --w: 168; --h: 156" aria-hidden="true"></span>
+          <span class="slot slot--hex-tall is-locked" style="--x: 1578; --y: 406; --w: 168; --h: 156" aria-hidden="true"></span>
+          <button class="slot slot--hex-tall" type="button" style="--x: 1578; --y: 598; --w: 168; --h: 156" aria-label="AI-Powered Workflow with Claude" aria-controls="about-ai-workflow">
+            <svg class="slot__icon slot__icon--claude" viewBox="0 0 24 24" aria-hidden="true"><use href="#claude-mark" /></svg>
+          </button>
+          <button class="slot slot--tall" type="button" style="--x: 1574; --y: 784; --w: 176; --h: 196" aria-label="Always Shipping" aria-controls="about-shipping">
+            <i class="slot__icon fa-solid fa-rocket" aria-hidden="true"></i>
+          </button>
+
+          <span class="slot slot--hex-tall slot--small is-locked" style="--x: 1782; --y: 236; --w: 116; --h: 112" aria-hidden="true"></span>
+          <span class="slot slot--hex-tall slot--small is-locked" style="--x: 1782; --y: 366; --w: 116; --h: 112" aria-hidden="true"></span>
+          <span class="slot slot--hex-tall slot--small is-locked" style="--x: 1782; --y: 496; --w: 116; --h: 112" aria-hidden="true"></span>
+          <span class="slot slot--hex-tall slot--small is-locked" style="--x: 1782; --y: 626; --w: 116; --h: 112" aria-hidden="true"></span>
+          <span class="slot slot--hex-tall slot--small is-locked" style="--x: 1782; --y: 756; --w: 116; --h: 112" aria-hidden="true"></span>
+          <span class="slot slot--hex-tall slot--small is-locked" style="--x: 1782; --y: 886; --w: 116; --h: 112" aria-hidden="true"></span>
+        </div>
+      </section>
+
+      <!-- Equipment = Skills -->
+      <section class="screen screen--equipment" role="tabpanel" id="panel-equipment" aria-labelledby="tab-equipment" hidden>
+        <h2 class="sr-only">Skills</h2>
+        <div class="equip-cloth cloth-brown" aria-hidden="true"></div>
+
+        <!-- Centre oval: portrait + the skill under the cursor. -->
+        <div class="detail detail--oval">
+          <img class="oval__portrait" src="Update_Portrait.jpg" alt="Portrait of Matthew" width="1249" height="2785" />
+          <article class="detail__item" id="skill-python">
+            <h3 class="detail__title">Python</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">Data scripts, automation, and ML experiments.</p>
+          </article>
+          <article class="detail__item" id="skill-javascript" hidden>
+            <h3 class="detail__title">JavaScript</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">ES6+, event-driven UI, and smooth interactivity.</p>
+          </article>
+          <article class="detail__item" id="skill-java" hidden>
+            <h3 class="detail__title">Java</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">OOP foundations and backend services.</p>
+          </article>
+          <article class="detail__item" id="skill-html" hidden>
+            <h3 class="detail__title">HTML</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">Semantic, accessible, and clean markup.</p>
+          </article>
+          <article class="detail__item" id="skill-css" hidden>
+            <h3 class="detail__title">CSS</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">Responsive layouts, modern gradients, and fluid animations.</p>
+          </article>
+          <article class="detail__item" id="skill-bootstrap" hidden>
+            <h3 class="detail__title">Bootstrap</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">Rapid prototyping with utility-first components.</p>
+          </article>
+          <article class="detail__item" id="skill-sql" hidden>
+            <h3 class="detail__title">SQL</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">Schema design, queries, and performance tuning.</p>
+          </article>
+          <article class="detail__item" id="skill-github" hidden>
+            <h3 class="detail__title">GitHub</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">Collaboration, issues, actions, and PR workflows.</p>
+          </article>
+          <article class="detail__item" id="skill-git" hidden>
+            <h3 class="detail__title">Version Control</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">Branching, merging, and release management.</p>
+          </article>
+          <article class="detail__item" id="skill-ai" hidden>
+            <h3 class="detail__title">AI &amp; Machine Learning</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">Lately digging into AI and machine learning to build automation that saves time and makes systems run smoother.</p>
+          </article>
+          <article class="detail__item" id="skill-automation" hidden>
+            <h3 class="detail__title">Automation</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">Automation is the name of the game! Keeping things running while you simply walk.</p>
+          </article>
+          <article class="detail__item" id="skill-fastapi" hidden>
+            <h3 class="detail__title">FastAPI</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">REST APIs for data ingestion and async analysis.</p>
+          </article>
+          <article class="detail__item" id="skill-funfact" hidden>
+            <h3 class="detail__title">Fun Fact</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">The inspiration for this whole website was a game I beat in a week. HYAH!</p>
+          </article>
+          <article class="detail__item" id="skill-ffmpeg" hidden>
+            <h3 class="detail__title">FFmpeg</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__desc">Production-grade rendering with smart merging and VFR safety in Content AI.</p>
+          </article>
+        </div>
+
+        <!-- Slots: accessories (left 2x2) and three rows on the right. Gold = equipped (main pick per row). -->
+        <div class="slot-board equip-board" data-slot-grid>
+          <button class="page-arrow" type="button" data-step="-1" tabindex="-1" aria-hidden="true" style="left: calc(80 * var(--px)); top: calc(600 * var(--px))"></button>
+          <button class="page-arrow page-arrow--next" type="button" data-step="1" tabindex="-1" aria-hidden="true" style="left: calc(1890 * var(--px)); top: calc(620 * var(--px))"></button>
+
+          <button class="slot slot--shield is-equipped" type="button" style="--x: 142; --y: 400; --w: 178; --h: 172" aria-label="AI &amp; Machine Learning (equipped)" aria-controls="skill-ai">
+            <i class="slot__icon fa-solid fa-brain" aria-hidden="true"></i>
+          </button>
+          <button class="slot slot--shield" type="button" style="--x: 370; --y: 400; --w: 178; --h: 172" aria-label="Automation" aria-controls="skill-automation">
+            <i class="slot__icon fa-solid fa-gears" aria-hidden="true"></i>
+          </button>
+          <button class="slot slot--house is-equipped" type="button" style="--x: 166; --y: 664; --w: 178; --h: 166" aria-label="FastAPI (equipped)" aria-controls="skill-fastapi">
+            <i class="slot__icon fa-solid fa-bolt" aria-hidden="true"></i>
+          </button>
+          <button class="slot slot--house" type="button" style="--x: 392; --y: 662; --w: 164; --h: 166" aria-label="FFmpeg" aria-controls="skill-ffmpeg">
+            <i class="slot__icon fa-solid fa-film" aria-hidden="true"></i>
+          </button>
+          <svg class="deco" style="--x: 300; --y: 560; --w: 112; --h: 112" viewBox="0 0 112 112" aria-hidden="true">
+            <g fill="none" stroke="#d79a4a" stroke-width="3" stroke-linecap="round">
+              <path d="M8 8 L40 40 M104 8 L72 40 M8 104 L40 72 M104 104 L72 72" />
+              <circle cx="56" cy="38" r="8" /><circle cx="56" cy="74" r="8" /><circle cx="38" cy="56" r="8" /><circle cx="74" cy="56" r="8" />
+            </g>
+          </svg>
+          <button class="slot slot--hex slot--small slot--funfact is-equipped" type="button" style="--x: 314; --y: 880; --w: 142; --h: 112" aria-label="Fun Fact" aria-controls="skill-funfact">
+            <i class="slot__icon fa-solid fa-gamepad" aria-hidden="true"></i>
+          </button>
+
+          <button class="slot slot--tall is-equipped" type="button" style="--x: 1378; --y: 262; --w: 150; --h: 272" data-cursor-home aria-label="Python, language (equipped)" aria-controls="skill-python">
+            <i class="slot__icon fa-brands fa-python" aria-hidden="true"></i>
+          </button>
+          <button class="slot slot--tall" type="button" style="--x: 1554; --y: 262; --w: 150; --h: 272" aria-label="JavaScript, language" aria-controls="skill-javascript">
+            <i class="slot__icon fa-brands fa-js" aria-hidden="true"></i>
+          </button>
+          <button class="slot slot--tall" type="button" style="--x: 1730; --y: 262; --w: 150; --h: 272" aria-label="Java, language" aria-controls="skill-java">
+            <i class="slot__icon fa-brands fa-java" aria-hidden="true"></i>
+          </button>
+
+          <button class="slot slot--hex-tall is-equipped" type="button" style="--x: 1374; --y: 560; --w: 158; --h: 200" aria-label="HTML, web (equipped)" aria-controls="skill-html">
+            <i class="slot__icon fa-brands fa-html5" aria-hidden="true"></i>
+          </button>
+          <button class="slot slot--hex-tall" type="button" style="--x: 1550; --y: 560; --w: 158; --h: 200" aria-label="CSS, web" aria-controls="skill-css">
+            <i class="slot__icon fa-brands fa-css3-alt" aria-hidden="true"></i>
+          </button>
+          <button class="slot slot--hex-tall" type="button" style="--x: 1726; --y: 560; --w: 158; --h: 200" aria-label="Bootstrap, web" aria-controls="skill-bootstrap">
+            <i class="slot__icon fa-brands fa-bootstrap" aria-hidden="true"></i>
+          </button>
+
+          <button class="slot slot--square" type="button" style="--x: 1374; --y: 784; --w: 158; --h: 168" aria-label="SQL, tools" aria-controls="skill-sql">
+            <i class="slot__icon fa-solid fa-database" aria-hidden="true"></i>
+          </button>
+          <button class="slot slot--square is-equipped" type="button" style="--x: 1550; --y: 784; --w: 158; --h: 168" aria-label="GitHub, tools (equipped)" aria-controls="skill-github">
+            <i class="slot__icon fa-brands fa-github" aria-hidden="true"></i>
+          </button>
+          <button class="slot slot--square" type="button" style="--x: 1726; --y: 784; --w: 158; --h: 168" aria-label="Version Control, tools" aria-controls="skill-git">
+            <i class="slot__icon fa-brands fa-git-alt" aria-hidden="true"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- Items = Projects -->
+      <section class="screen screen--items" role="tabpanel" id="panel-items" aria-labelledby="tab-items">
+        <h2 class="sr-only">Projects</h2>
+
+        <!-- Slot board (left). Gold wells = projects in progress. Locked wells are decorative. -->
+        <div class="board slot-board cloth-brown" data-slot-grid>
+          <span class="board__vine board__vine--v" style="--x: 478; --y: 170; --len: 450" aria-hidden="true"></span>
+          <span class="board__vine board__vine--v" style="--x: 778; --y: 170; --len: 450" aria-hidden="true"></span>
+
+          <button class="slot" type="button" style="--x: 104; --y: 186; --w: 176; --h: 252"
+            aria-label="Pocket Mechanic: AI Vehicle Diagnostic Assistant" aria-controls="proj-pocket-mechanic">
+            <i class="slot__icon fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+          </button>
+          <span class="slot is-locked" style="--x: 298; --y: 186; --w: 158; --h: 160" aria-hidden="true"></span>
+          <span class="slot slot--chevron is-locked" style="--x: 298; --y: 364; --w: 158; --h: 176" aria-hidden="true"></span>
+          <span class="slot is-locked" style="--x: 104; --y: 456; --w: 176; --h: 84" aria-hidden="true"></span>
+          <span class="slot is-locked" style="--x: 116; --y: 556; --w: 152; --h: 92" aria-hidden="true"></span>
+          <span class="slot is-locked" style="--x: 300; --y: 556; --w: 152; --h: 92" aria-hidden="true"></span>
+
+          <button class="slot slot--feature" type="button" style="--x: 508; --y: 172; --w: 252; --h: 262" data-cursor-home
+            aria-label="An Oxtail’s Journey: Humanities capstone, interactive food-narrative globe" aria-controls="proj-oxtail">
+            <i class="slot__icon fa-solid fa-bowl-food" aria-hidden="true"></i>
+          </button>
+          <span class="slot slot--pill is-locked" style="--x: 530; --y: 452; --w: 208; --h: 56" aria-hidden="true"></span>
+          <span class="slot slot--pill is-locked" style="--x: 530; --y: 518; --w: 208; --h: 56" aria-hidden="true"></span>
+          <span class="slot slot--pill is-locked" style="--x: 530; --y: 584; --w: 208; --h: 56" aria-hidden="true"></span>
+
+          <button class="slot is-equipped" type="button" style="--x: 806; --y: 172; --w: 232; --h: 300"
+            aria-label="Content AI: Automated Gameplay Highlight Engine (in progress)" aria-controls="proj-content-ai">
+            <i class="slot__icon fa-solid fa-clapperboard" aria-hidden="true"></i>
+          </button>
+          <span class="slot is-locked" style="--x: 836; --y: 490; --w: 172; --h: 150" aria-hidden="true"></span>
+
+          <div class="rule board__rule" style="--x: 110; --y: 664; --w: 930" aria-hidden="true"><span></span></div>
+
+          <span class="slot is-locked" style="--x: 130; --y: 700; --w: 134; --h: 126" aria-hidden="true"></span>
+          <span class="slot is-locked" style="--x: 282; --y: 700; --w: 134; --h: 126" aria-hidden="true"></span>
+          <span class="slot slot--hex-tall is-locked" style="--x: 450; --y: 690; --w: 126; --h: 146" aria-hidden="true"></span>
+          <span class="slot slot--hex-tall is-locked" style="--x: 594; --y: 690; --w: 126; --h: 146" aria-hidden="true"></span>
+          <span class="slot slot--hex-tall is-locked" style="--x: 738; --y: 690; --w: 126; --h: 146" aria-hidden="true"></span>
+          <span class="slot is-locked" style="--x: 904; --y: 708; --w: 120; --h: 110" aria-hidden="true"></span>
+
+          <span class="slot is-locked" style="--x: 150; --y: 852; --w: 118; --h: 130" aria-hidden="true"></span>
+          <span class="slot is-locked" style="--x: 292; --y: 852; --w: 118; --h: 130" aria-hidden="true"></span>
+          <span class="slot is-locked" style="--x: 434; --y: 852; --w: 118; --h: 130" aria-hidden="true"></span>
+          <span class="slot is-locked" style="--x: 576; --y: 852; --w: 118; --h: 130" aria-hidden="true"></span>
+          <span class="slot is-locked" style="--x: 718; --y: 852; --w: 118; --h: 130" aria-hidden="true"></span>
+          <span class="slot slot--round is-locked" style="--x: 896; --y: 856; --w: 124; --h: 124" aria-hidden="true"></span>
+        </div>
+
+        <!-- Detail pane (right): one article per project; the cursor decides which one shows. -->
+        <div class="detail pane-dark">
+          <button class="sheet-close" type="button">Back <span class="cap">B</span></button>
+          <article class="detail__item" id="proj-oxtail">
+            <div class="detail__art" aria-hidden="true"><i class="fa-solid fa-bowl-food"></i></div>
+            <h3 class="detail__title">An Oxtail’s Journey</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__meta">Humanities Capstone: Food Narratives · November 2026</p>
+            <div class="detail__body">
+              <p>An interactive 3D globe that follows oxtail from the farm to your fork, built for my undergraduate humanities capstone, Food Narratives, with Professor Risa Gorelick.</p>
+              <ul>
+                <li>Night-lights globe with amber country highlights, pulsing city rings and animated migration arcs.</li>
+                <li>Ten cited stops, from the kill floor’s “fifth quarter” to the Caribbean diaspora and the price story.</li>
+                <li>Info card with Prev/Next and keyboard navigation, plus a phone bottom-sheet layout.</li>
+              </ul>
+              <p><strong>Tech:</strong> JavaScript, Vite, globe.gl, GSAP, TopoJSON</p>
+            </div>
+            <div class="detail__links">
+              <a class="detail__link" href="https://buddah0.github.io/oxtail-journey/" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-globe" aria-hidden="true"></i> Live Site
+              </a>
+              <a class="detail__link" href="https://github.com/Buddah0/oxtail-journey" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-github" aria-hidden="true"></i> View Repo
+              </a>
+            </div>
+          </article>
+
+          <article class="detail__item" id="proj-pocket-mechanic" hidden>
+            <div class="detail__art" aria-hidden="true"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+            <h3 class="detail__title">Pocket Mechanic</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__meta">AI Vehicle Diagnostic Assistant · Spring 2025</p>
+            <div class="detail__body">
+              <p>Built responsive web pages for a fictitious automotive shop using <strong>HTML</strong> and <strong>CSS</strong>.
                 This project features an AI assistant designed to help students diagnose car problems affordably.
                 It simplifies complex issues into understandable language. This experience taught me the challenges of
-                training AI models and practical integration nuances.
-              </p>
+                training AI models and practical integration nuances.</p>
             </div>
+          </article>
+
+          <article class="detail__item" id="proj-content-ai" hidden>
+            <div class="detail__art" aria-hidden="true"><i class="fa-solid fa-clapperboard"></i></div>
+            <h3 class="detail__title">Content AI</h3>
+            <div class="rule detail__rule" aria-hidden="true"><span></span></div>
+            <p class="detail__meta">Automated Gameplay Highlight Engine · December 2025 to March 2026</p>
+            <div class="detail__body">
+              <p>An intelligent pipeline that detects high-energy moments in gameplay footage using audio-first signal processing.</p>
+              <ul>
+                <li>Audio-first detection using Librosa (HPSS + RMS) to isolate key events.</li>
+                <li>Production-grade FFmpeg rendering with smart merging and VFR safety.</li>
+                <li>Resumable batch processing queue with crash recovery (SQLite).</li>
+                <li>This project has taken a specialized route involving Docker and an MCP server. It’s currently in development; the code isn’t published yet, but the results look very promising!</li>
+              </ul>
+              <p><strong>Tech:</strong> Python, FFmpeg, Librosa, SQLite, Pydantic</p>
+            </div>
+            <a class="detail__link" href="https://github.com/Buddah0/content-ai" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-github" aria-hidden="true"></i> View Repo
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <!-- System = Contact / links / controls -->
+      <section class="screen screen--system" role="tabpanel" id="panel-system" aria-labelledby="tab-system" hidden>
+        <h2 class="sr-only">Contact and controls</h2>
+        <div class="sys-bg" aria-hidden="true"></div>
+
+        <!-- Menu column (left) -->
+        <nav class="sys-column cloth-brown" aria-label="Contact and site">
+          <div class="sys-menu slot-board" data-slot-grid>
+            <a class="sys-btn" href="https://github.com/Buddah0" target="_blank" rel="noopener" style="--x: 160; --y: 340" aria-controls="sys-github">GitHub</a>
+            <a class="sys-btn" href="https://www.linkedin.com/in/bryan-m-bess/" target="_blank" rel="noopener" style="--x: 160; --y: 428" aria-controls="sys-linkedin">LinkedIn</a>
+            <a class="sys-btn" href="https://www.instagram.com/buddah__0/" target="_blank" rel="noopener" style="--x: 160; --y: 516" aria-controls="sys-instagram">Instagram</a>
+            <span class="sys-sep" style="--x: 180; --y: 608" aria-hidden="true"></span>
+            <button class="sys-btn" type="button" style="--x: 160; --y: 648" data-cursor-home aria-controls="sys-controls">Basic Controls<span class="badge-new" aria-hidden="true">New!</span></button>
+            <button class="sys-btn" type="button" style="--x: 160; --y: 736" data-action="title" aria-controls="sys-title">Title Screen</button>
           </div>
-        </article>
+        </nav>
 
-        <!-- Project 2: Prereq Validator (flip card) -->
-        <article class="project-card">
-          <div class="card-inner">
-            <div class="card-front">
-              <div class="project-date">[December 2025 to Current]</div>
-              <h4 class="project-title">College Prerequisite Validator AI</h4>
-              <p class="card-click-hint">Click me!</p>
+        <!-- Card (right): shows whatever the cursor is on -->
+        <div class="detail sys-card">
+          <article class="detail__item sys-card__item" id="sys-controls">
+            <h3 class="sys-card__title"><span class="flourish" aria-hidden="true"></span>Basic Controls<span class="flourish flourish--end" aria-hidden="true"></span></h3>
+            <div class="controls">
+              <ul class="controls__col controls__col--keys" aria-label="Keyboard">
+                <li>Switch screens <kbd class="cap">Q</kbd><kbd class="cap">E</kbd></li>
+                <li>Tab bar <kbd class="cap">←</kbd><kbd class="cap">→</kbd></li>
+                <li>Move cursor <kbd class="cap">↑↓←→</kbd></li>
+                <li>Select <kbd class="cap">Enter</kbd></li>
+                <li>Back <kbd class="cap">Esc</kbd></li>
+              </ul>
+              <svg class="controls__art" viewBox="0 0 360 220" aria-hidden="true">
+                <rect x="8" y="46" width="252" height="136" rx="18" fill="#2b1d14" stroke="#120a05" stroke-width="4" />
+                <g fill="#4a3526">
+                  <rect x="24" y="62" width="26" height="22" rx="4" /><rect x="84" y="62" width="26" height="22" rx="4" /><rect x="114" y="62" width="26" height="22" rx="4" />
+                  <rect x="144" y="62" width="26" height="22" rx="4" /><rect x="174" y="62" width="26" height="22" rx="4" /><rect x="204" y="62" width="26" height="22" rx="4" />
+                  <rect x="24" y="90" width="26" height="22" rx="4" /><rect x="114" y="90" width="26" height="22" rx="4" /><rect x="144" y="90" width="26" height="22" rx="4" /><rect x="174" y="90" width="26" height="22" rx="4" />
+                  <rect x="24" y="118" width="46" height="22" rx="4" /><rect x="76" y="118" width="26" height="22" rx="4" /><rect x="108" y="118" width="26" height="22" rx="4" /><rect x="140" y="118" width="26" height="22" rx="4" />
+                  <rect x="24" y="146" width="130" height="22" rx="4" />
+                </g>
+                <g fill="#efe3c6" stroke="#120a05" stroke-width="1.5">
+                  <rect x="54" y="62" width="26" height="22" rx="4" /><rect x="54" y="90" width="26" height="22" rx="4" /><rect x="84" y="90" width="26" height="22" rx="4" />
+                  <rect x="204" y="90" width="42" height="50" rx="4" /><rect x="172" y="118" width="26" height="22" rx="4" />
+                  <rect x="190" y="146" width="22" height="22" rx="4" /><rect x="216" y="146" width="22" height="22" rx="4" /><rect x="164" y="146" width="22" height="22" rx="4" />
+                </g>
+                <g font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#3b2210" text-anchor="middle">
+                  <text x="67" y="77">Esc</text><text x="67" y="105">Q</text><text x="97" y="105">E</text><text x="225" y="119">⏎</text>
+                  <text x="185" y="133">↑</text><text x="175" y="161">←</text><text x="201" y="161">↓</text><text x="227" y="161">→</text>
+                </g>
+                <path d="M304 64 C 280 64, 276 90, 276 118 L 276 168 C 276 196, 296 206, 312 206 C 328 206, 348 196, 348 168 L 348 118 C 348 90, 344 64, 320 64 Z" fill="#2b1d14" stroke="#120a05" stroke-width="4" />
+                <path d="M312 66 L 312 120 M 276 120 L 348 120" stroke="#120a05" stroke-width="3" fill="none" />
+                <path d="M278 118 L 278 100 C 280 80, 292 68, 310 66 L 310 118 Z" fill="#efe3c6" stroke="#120a05" stroke-width="1.5" />
+                <rect x="308" y="80" width="8" height="18" rx="4" fill="#4a3526" />
+              </svg>
+              <ul class="controls__col controls__col--pointer" aria-label="Mouse and touch">
+                <li><kbd class="cap">L</kbd><kbd class="cap">R</kbd> Switch screens</li>
+                <li><kbd class="cap"><i class="fa-solid fa-computer-mouse" aria-hidden="true"></i></kbd> Preview: hover or tap</li>
+                <li><kbd class="cap"><i class="fa-solid fa-computer-mouse" aria-hidden="true"></i></kbd> Select: click or tap</li>
+                <li><kbd class="cap"><i class="fa-solid fa-hand" aria-hidden="true"></i></kbd> Rotate art: drag</li>
+                <li><kbd class="cap"><i class="fa-brands fa-github" aria-hidden="true"></i></kbd> Open: View Repo</li>
+              </ul>
             </div>
-            <div class="card-back">
-              <p class="project-subtitle">Automated Course Catalog Analysis Tool</p>
-              <div class="project-desc">
-                A tool that validates college course structures by converting catalogs into directed graphs to detect
-                structural issues.
-                <ul>
-                  <li>Validates prerequisites using directed graphs (NetworkX) to find cycles and bottlenecks.</li>
-                  <li>Interactive dashboard visualization using Cytoscape.js and HTMX.</li>
-                  <li>REST API (FastAPI) for ingestion and async analysis.</li>
-                </ul>
-                <p><strong>Tech:</strong> Python, FastAPI, NetworkX, Cytoscape.js</p>
-              </div>
-              <div class="project-footer">
-                <a href="https://github.com/Buddah0/Prereq-College-Validation-Ai" target="_blank" rel="noopener noreferrer" class="social-link">
-                  <i class="fa-brands fa-github"></i> View Repo
-                </a>
-              </div>
-            </div>
-          </div>
-        </article>
+          </article>
+          <article class="detail__item sys-card__item" id="sys-github" hidden>
+            <i class="sys-card__icon fa-brands fa-github" aria-hidden="true"></i>
+            <h3 class="sys-card__title">GitHub</h3>
+            <p class="sys-card__text">github.com/Buddah0</p>
+            <p class="sys-card__hint">Source code for my projects.</p>
+          </article>
+          <article class="detail__item sys-card__item" id="sys-linkedin" hidden>
+            <i class="sys-card__icon fa-brands fa-linkedin" aria-hidden="true"></i>
+            <h3 class="sys-card__title">LinkedIn</h3>
+            <p class="sys-card__text">linkedin.com/in/bryan-m-bess</p>
+            <p class="sys-card__hint">My professional profile.</p>
+          </article>
+          <article class="detail__item sys-card__item" id="sys-instagram" hidden>
+            <i class="sys-card__icon fa-brands fa-instagram" aria-hidden="true"></i>
+            <h3 class="sys-card__title">Instagram</h3>
+            <p class="sys-card__text">instagram.com/buddah__0</p>
+          </article>
+          <article class="detail__item sys-card__item" id="sys-title" hidden>
+            <i class="sys-card__icon fa-solid fa-house" aria-hidden="true"></i>
+            <h3 class="sys-card__title">Title Screen</h3>
+            <p class="sys-card__text">Return to the title screen.</p>
+          </article>
+        </div>
 
-        <!-- Project 3: Content AI (flip card) -->
-        <article class="project-card">
-          <div class="card-inner">
-            <div class="card-front">
-              <div class="project-date">[December 2025 to Current]</div>
-              <h4 class="project-title">Content AI</h4>
-              <p class="card-click-hint">Click me!</p>
-            </div>
-            <div class="card-back">
-              <p class="project-subtitle">Automated Gameplay Highlight Engine</p>
-              <div class="project-desc">
-                An intelligent pipeline that detects high-energy moments in gameplay footage using audio-first signal
-                processing.
-                <ul>
-                  <li>Audio-first detection using Librosa (HPSS + RMS) to isolate key events.</li>
-                  <li>Production-grade FFmpeg rendering with smart merging and VFR safety.</li>
-                  <li>Resumable batch processing queue with crash recovery (SQLite).</li>
-                </ul>
-                <p><strong>Tech:</strong> Python, FFmpeg, Librosa, SQLite, Pydantic</p>
-              </div>
-              <div class="project-footer">
-                <a href="https://github.com/Buddah0/content-ai" target="_blank" rel="noopener noreferrer" class="social-link">
-                  <i class="fa-brands fa-github"></i> View Repo
-                </a>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
+        <p class="sys-foot">© 2025 Matthew · Built with HTML, CSS &amp; JS · Menu design inspired by <cite>The Legend of Zelda: Ocarina of Time</cite> (fan homage, not affiliated with Nintendo)</p>
+      </section>
+    </main>
 
-  <!-- Skills -->
-  <section class="section skills" id="skills">
-    <div class="container">
-      <h3 class="section-title">My Skillset 🧠:</h3>
-      <div class="skills-grid">
-        <!-- Each card is a flex item, accessible and animated on scroll -->
-        <article class="skill-card" aria-label="HTML">
-          <div class="skill-icon">🔧</div>
-          <h4 class="skill-name">HTML</h4>
-          <p class="skill-desc">Semantic, accessible, and clean markup.</p>
-        </article>
+    <!-- ===== Prompt bar ===== -->
+    <footer class="prompts" aria-hidden="true"></footer>
+    <!-- ===== Title screen ===== -->
+    <section class="title-screen" id="title-screen" aria-labelledby="title-name" hidden>
+      <h2 class="title-logo" id="title-name">
+        <span class="title-logo__pre">The Portfolio of</span>
+        <span class="title-logo__name">Matthew</span>
+        <span class="title-logo__sub">Software Engineer · AI &amp; Machine Learning</span>
+      </h2>
+      <nav class="title-menu" aria-label="Start">
+        <button class="title-menu__item" type="button" data-target="items" data-cursor-home data-caption="Jump into my projects">Continue</button>
+        <button class="title-menu__item" type="button" data-target="collection" data-caption="Start with who I am">New Game</button>
+        <button class="title-menu__item" type="button" data-target="system" data-caption="Find me online">Contact</button>
+      </nav>
+      <p class="title-caption" aria-live="polite"></p>
+    </section>
+  </div>
 
-        <article class="skill-card" aria-label="CSS">
-          <div class="skill-icon">🎨</div>
-          <h4 class="skill-name">CSS</h4>
-          <p class="skill-desc">Responsive layouts, modern gradients, and fluid animations.</p>
-        </article>
-
-        <article class="skill-card" aria-label="JavaScript">
-          <div class="skill-icon">⚡</div>
-          <h4 class="skill-name">JavaScript</h4>
-          <p class="skill-desc">ES6+, event-driven UI, and smooth interactivity.</p>
-        </article>
-
-        <article class="skill-card" aria-label="Bootstrap">
-          <div class="skill-icon">🧱</div>
-          <h4 class="skill-name">Bootstrap</h4>
-          <p class="skill-desc">Rapid prototyping with utility-first components.</p>
-        </article>
-
-        <article class="skill-card" aria-label="Python">
-          <div class="skill-icon">🐍</div>
-          <h4 class="skill-name">Python</h4>
-          <p class="skill-desc">Data scripts, automation, and ML experiments.</p>
-        </article>
-
-        <article class="skill-card" aria-label="Java">
-          <div class="skill-icon">☕</div>
-          <h4 class="skill-name">Java</h4>
-          <p class="skill-desc">OOP foundations and backend services.</p>
-        </article>
-
-        <article class="skill-card" aria-label="SQL">
-          <div class="skill-icon">🗄️</div>
-          <h4 class="skill-name">SQL</h4>
-          <p class="skill-desc">Schema design, queries, and performance tuning.</p>
-        </article>
-
-        <article class="skill-card" aria-label="GitHub">
-          <div class="skill-icon">🐙</div>
-          <h4 class="skill-name">GitHub</h4>
-          <p class="skill-desc">Collaboration, issues, actions, and PR workflows.</p>
-        </article>
-
-        <article class="skill-card" aria-label="Version Control">
-          <div class="skill-icon">🔁</div>
-          <h4 class="skill-name">Version Control</h4>
-          <p class="skill-desc">Branching, merging, and release management.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-
-
-  <!-- Footer -->
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-      <p class="foot-note">© 2025 Matthew. Built with HTML, CSS, and JS.</p>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <!-- Optional: Bootstrap JS if used -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> -->
+  <!-- ===== SVG symbols (original artwork) ===== -->  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="gem-face" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#b8ffcf" />
+        <stop offset="0.45" stop-color="#2fd36b" />
+        <stop offset="1" stop-color="#0b7a3a" />
+      </linearGradient>
+      <!-- Claude mark: official logo path from Simple Icons (CC0 SVG data; trademark of Anthropic). -->
+      <symbol id="claude-mark" viewBox="0 0 24 24">
+        <path fill="currentColor" d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z" />
+      </symbol>
+      <symbol id="gem" viewBox="0 0 40 40">
+        <!-- brilliant-cut gem seen from the side: crown + pavilion -->
+        <path d="M8 13 L14 6 H26 L32 13 L20 36 Z" fill="url(#gem-face)" stroke="#0a3d1f" stroke-width="1.6" stroke-linejoin="round" />
+        <path d="M8 13 H32 M14 6 L17 13 L20 6 L23 13 L26 6 M17 13 L20 36 L23 13" fill="none" stroke="#0a3d1f" stroke-width="1" stroke-linejoin="round" opacity="0.7" />
+        <path d="M15 8 L17.5 12 H10.5 Z" fill="#fff" opacity="0.75" />
+      </symbol>
+    </defs>
+  </svg>
 </body>
 
 </html>

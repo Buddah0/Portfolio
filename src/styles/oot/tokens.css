@@ -1,0 +1,92 @@
+/* Design tokens for the OOT-Remake menu theme.
+   Colors were sampled from photos of the Switch 2 pause menu and tuned by eye
+   (camera exposure and moiré shift the raw samples). */
+:root {
+  /* --- Scale: the layout is designed on a 1920x1080 canvas. 1 design px = --px. --- */
+  --px: calc(min(100vw, 100dvh * 16 / 9) / 1920);
+
+  /* --- Type --- */
+  --font-ui: 'Ysabeau Office', 'Optima', 'Candara', 'Segoe UI', system-ui, sans-serif;
+  --fw-body: 600;
+  --fw-tab: 700;
+  --fw-title: 800;
+  --fw-heavy: 900;
+  --ls-title: -0.01em;
+
+  /* --- Gold cloth (header band, buttons) --- */
+  --gold-hi: #f2c76a;
+  --gold: #d9a441;
+  --gold-mid: #c08636;
+  --gold-lo: #8a5a1c;
+  --gold-thread: #ffe3a1;
+
+  /* --- Brown cloth (side panels) --- */
+  --brown-hi: #6e4c2c;
+  --brown: #563a21;
+  --brown-lo: #3b2715;
+  --brown-deep: #2c1d11;
+  --brown-line: #2a190c;
+
+  /* --- Ornaments (curl border, rims) --- */
+  --ornament-dark: #3b2210;
+  --ornament-edge: #e8a84a;
+
+  /* --- Active tab banner --- */
+  --maroon-hi: #9a4a3a;
+  --maroon: #7a3328;
+  --maroon-lo: #5a2219;
+
+  /* --- Slots --- */
+  --slot-bg: #1e1510;
+  --slot-bg-hi: #2e2017;
+  --slot-rim-hi: #c9a067;
+  --slot-rim: #8f6a3f;
+  --slot-rim-lo: #3e2a17;
+  --equipped-hi: #f4c22e;
+  --equipped: #d8920e;
+  --equipped-lo: #a8650a;
+
+  /* --- Cursor (selected) --- */
+  --cursor: #ffffff;
+  --cursor-glow: #5fb8ff;
+  --cursor-glow-soft: rgb(95 184 255 / 0.55);
+
+  /* --- Detail pane --- */
+  --pane-hi: #14223f;
+  --pane: #0b1428;
+  --pane-lo: #04070f;
+
+  /* --- Text --- */
+  --text: #f6f3ea;
+  --text-tab: #e6edf1;
+  --text-dim: #b9b1a0;
+  --text-shadow: 0 calc(2 * var(--px)) calc(2 * var(--px)) rgb(0 0 0 / 0.85), 0 0 calc(6 * var(--px)) rgb(0 0 0 / 0.55);
+  --count-max: #8ee83a;
+  --count: #ffffff;
+  --badge-new: #f3d23a;
+
+  /* --- Vitals --- */
+  --heart: #ff5a2a;
+  --heart-hi: #ffd04a;
+  --heart-rim: #fff3dc;
+  --magic: #3bd14a;
+  --magic-hi: #a6f58a;
+  --magic-track: #1d3a12;
+
+  /* --- Prompt bar --- */
+  --prompt-bg: rgb(10 8 6 / 0.55);
+
+  /* --- Motion --- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 120ms;
+  --dur: 220ms;
+  --dur-slow: 420ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur: 0ms;
+    --dur-slow: 0ms;
+  }
+}
