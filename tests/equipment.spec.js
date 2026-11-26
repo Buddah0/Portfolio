@@ -10,8 +10,8 @@ test.beforeEach(async ({ page }) => {
 test('opens with the cursor on Python and all skills present', async ({ page }) => {
   await expect(page.locator(slot('python'))).toHaveClass(/is-cursor/);
   await expect(page.locator('#skill-python')).toBeVisible();
-  await expect(page.locator('#panel-equipment button.slot')).toHaveCount(13);
-  await expect(page.locator('#panel-equipment .slot.is-equipped')).toHaveCount(5);
+  await expect(page.locator('#panel-equipment button.slot')).toHaveCount(14);
+  await expect(page.locator('#panel-equipment .slot.is-equipped')).toHaveCount(6);
   for (const id of ['html', 'css', 'javascript', 'bootstrap', 'python', 'java', 'sql', 'github', 'git']) {
     await expect(page.locator(`#skill-${id}`)).toHaveCount(1);
   }

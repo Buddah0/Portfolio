@@ -88,7 +88,7 @@ Below a 1:1 aspect ratio, `mobile.css` switches `--px` to an 860 px design colum
 
 ## Editing content
 
-- **Add a project:** in the Items section of `index.html`, swap a locked `<span class="slot is-locked">` for a `<button class="slot">` with an icon and `aria-controls="proj-your-id"`. Then add a matching `<article class="detail__item" id="proj-your-id" hidden>` to the Items detail pane. Use `is-equipped` for in-progress work, and update the counter in the header.
+- **Add a project:** in the Items section of `index.html`, swap a locked `<span class="slot is-locked">` for a `<button class="slot">` with an icon and `aria-controls="proj-your-id"`. Then add a matching `<article class="detail__item" id="proj-your-id" hidden>` to the Items detail pane. Use `is-equipped` for in-progress work, and update the counter in the header. For more than one link (e.g. Live Site + View Repo), wrap the `.detail__link`s in a `<div class="detail__links">`; Select jumps to the first one.
 - **Skills, about-me entries and contact links** follow the same slot + article pairing in their own screens.
 - The years-coding count is computed from `data-years-since="2019"`.
 
@@ -163,6 +163,7 @@ Legacy files from the previous synthwave design (`src/background/synthwaveGrid.j
 - Menu design inspired by *The Legend of Zelda: Ocarina of Time* (Nintendo, 2026). All artwork in this repository is original.
 - [Ysabeau Office](https://fonts.google.com/specimen/Ysabeau+Office) by Christian Thalmann, SIL Open Font License.
 - [Font Awesome Free](https://fontawesome.com/license/free) icons, CC BY 4.0.
+- Claude mark from [Simple Icons](https://simpleicons.org/?q=claude) (CC0 SVG data). Claude is a trademark of Anthropic.
 - [Anime.js](https://animejs.com/), MIT License.
 
 ## License

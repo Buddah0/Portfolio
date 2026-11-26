@@ -214,6 +214,13 @@
     grid-column: 2;
   }
 
+  /* Fun Fact closes the list, centred on its own row. */
+  .equip-board > .slot--funfact {
+    order: 3;
+    grid-column: 2;
+    width: calc(170 * var(--px));
+  }
+
   /* ---------- System: menu stacked over the card ---------- */
   .sys-column {
     position: relative;

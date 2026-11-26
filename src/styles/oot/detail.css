@@ -12,10 +12,14 @@
   display: none;
 }
 
-/* ---------- Art: big metallic glyph under a soft spotlight; drag to rotate ---------- */
+/* ---------- Art: big metallic glyph under a soft spotlight; drag to rotate ----------
+   The art box gives up height first when a write-up is long (the text never gets cut),
+   and the glyph scales with the box via container query units. */
 .detail__art {
   position: relative;
-  flex: 0 0 calc(270 * var(--px));
+  flex: 0 1 calc(270 * var(--px));
+  min-height: calc(130 * var(--px));
+  container-type: size;
   width: 100%;
   display: grid;
   place-items: center;
@@ -38,15 +42,15 @@
   cursor: grabbing;
 }
 
-.detail__art > i {
-  font-size: calc(180 * var(--px));
+.detail__art > :is(i, svg) {
+  font-size: min(calc(180 * var(--px)), 82cqh);
   transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   filter: drop-shadow(0 calc(10 * var(--px)) calc(10 * var(--px)) rgb(0 0 0 / 0.8));
   animation: art-float 5s ease-in-out infinite;
 }
 
-.detail__art.is-dragging > i,
-.detail__art.was-dragged > i {
+.detail__art.is-dragging > :is(i, svg),
+.detail__art.was-dragged > :is(i, svg) {
   animation: none;
 }
 
@@ -86,6 +90,7 @@
 }
 
 .detail__body {
+  flex: 0 0 auto;
   width: 88%;
   min-height: 0;
   overflow: auto;
@@ -131,6 +136,19 @@
   font-weight: var(--fw-tab);
   text-decoration: none;
   text-shadow: var(--text-shadow);
+}
+
+/* Several links side by side (e.g. Live Site + View Repo). */
+.detail__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(18 * var(--px));
+  margin-top: calc(14 * var(--px));
+}
+
+.detail__links > .detail__link {
+  margin-top: 0;
 }
 
 .detail__link:hover {
@@ -198,7 +216,17 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .detail__art > i {
+  .detail__art > :is(i, svg) {
     animation: none;
   }
+}
+
+/* Brand-mark art (e.g. the Claude logo) keeps its own colour instead of the metallic glyph treatment. */
+.detail__art > svg {
+  width: 1em;
+  height: 1em;
+}
+
+.art-claude {
+  color: #d97757;
 }

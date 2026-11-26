@@ -57,6 +57,20 @@ test('equipment: tapping a skill updates the portrait oval (no sheet)', async ({
   await expect(page.locator('.detail--oval')).not.toHaveClass(/is-open/);
 });
 
+test('equipment: Fun Fact closes the grid, centred under the accessories', async ({ page }) => {
+  await page.goto('./#skills');
+  const fun = page.locator('[aria-controls="skill-funfact"]');
+  await fun.scrollIntoViewIfNeeded();
+  await expect(fun).toBeVisible();
+  const boxes = await page.evaluate(() =>
+    [...document.querySelectorAll('#panel-equipment button.slot')].map((el) => ({ id: el.getAttribute('aria-controls'), ...el.getBoundingClientRect().toJSON() })));
+  const funBox = boxes.find((b) => b.id === 'skill-funfact');
+  expect(Math.max(...boxes.map((b) => b.y))).toBe(funBox.y); // last row
+  expect(Math.abs(funBox.x + funBox.width / 2 - page.viewportSize().width / 2)).toBeLessThan(30); // centred
+  await fun.tap();
+  await expect(page.locator('#skill-funfact')).toBeVisible();
+});
+
 test('touch targets are big enough (WCAG 2.5.8: at least 24 px)', async ({ page }) => {
   for (const hash of ['items', 'skills', 'about', 'contact']) {
     await page.goto(`./#${hash}`);

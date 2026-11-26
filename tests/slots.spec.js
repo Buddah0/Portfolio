@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const PREREQ = '[aria-controls="proj-prereq"]';
+const FEATURED = '[aria-controls="proj-oxtail"]';
 const POCKET = '[aria-controls="proj-pocket-mechanic"]';
 const CONTENT = '[aria-controls="proj-content-ai"]';
 
@@ -10,8 +10,8 @@ test.beforeEach(async ({ page }) => {
 
 test('cursor starts on the featured project and the grid has one tab stop', async ({ page }) => {
   const grid = page.locator('#panel-items [data-slot-grid]');
-  await expect(grid.locator(PREREQ)).toHaveClass(/is-cursor/);
-  await expect(grid.locator(PREREQ)).toHaveAttribute('tabindex', '0');
+  await expect(grid.locator(FEATURED)).toHaveClass(/is-cursor/);
+  await expect(grid.locator(FEATURED)).toHaveAttribute('tabindex', '0');
   await expect(grid.locator(POCKET)).toHaveAttribute('tabindex', '-1');
   await expect(grid.locator(CONTENT)).toHaveAttribute('tabindex', '-1');
   await expect(grid.locator('.slot.is-cursor')).toHaveCount(1);
@@ -27,19 +27,19 @@ test('cursor starts on the featured project and the grid has one tab stop', asyn
   // Tab order: R shoulder -> cursor slot -> first link in the detail pane.
   await page.locator('.shoulder[data-step="1"]').focus();
   await page.keyboard.press('Tab');
-  await expect(grid.locator(PREREQ)).toBeFocused();
+  await expect(grid.locator(FEATURED)).toBeFocused();
   await page.keyboard.press('Tab');
-  await expect(page.locator('#proj-prereq .detail__link')).toBeFocused();
+  await expect(page.locator('#proj-oxtail .detail__link').first()).toBeFocused();
 });
 
 test('arrow keys move the cursor to the nearest slot and stop at edges', async ({ page }) => {
   const grid = page.locator('#panel-items [data-slot-grid]');
-  await grid.locator(PREREQ).focus();
+  await grid.locator(FEATURED).focus();
 
   await page.keyboard.press('ArrowRight');
   await expect(grid.locator(CONTENT)).toBeFocused();
   await expect(grid.locator(CONTENT)).toHaveClass(/is-cursor/);
-  await expect(grid.locator(PREREQ)).not.toHaveClass(/is-cursor/);
+  await expect(grid.locator(FEATURED)).not.toHaveClass(/is-cursor/);
 
   await page.keyboard.press('ArrowRight'); // right edge: stays put
   await expect(grid.locator(CONTENT)).toBeFocused();
@@ -57,12 +57,12 @@ test('arrow keys move the cursor to the nearest slot and stop at edges', async (
 });
 
 test('the cursor decides which project the detail pane shows', async ({ page }) => {
-  await expect(page.locator('#proj-prereq')).toBeVisible();
+  await expect(page.locator('#proj-oxtail')).toBeVisible();
   await expect(page.locator('#proj-pocket-mechanic')).toBeHidden();
 
   await page.locator(POCKET).focus();
   await expect(page.locator('#proj-pocket-mechanic')).toBeVisible();
-  await expect(page.locator('#proj-prereq')).toBeHidden();
+  await expect(page.locator('#proj-oxtail')).toBeHidden();
   await expect(page.locator('#proj-content-ai')).toBeHidden();
 });
 

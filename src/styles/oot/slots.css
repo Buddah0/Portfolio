@@ -77,6 +77,13 @@
 
 .slot--small .slot__icon { font-size: calc(64 * var(--px)); }
 
+/* SVG brand marks in slots (sized like the icon-font glyphs). */
+.slot__icon--claude {
+  width: calc(96 * var(--px));
+  height: calc(96 * var(--px));
+  color: #d97757;
+}
+
 /* Glowing medallion wells (magenta light behind the icon). */
 .slot.is-glow {
   --well-bg: radial-gradient(circle at 50% 50%, #f0a6dc 0%, #b4529d 20%, #6b2862 42%, #2c1222 70%, #150a0e);

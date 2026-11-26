@@ -43,8 +43,8 @@
   flex-basis: calc(330 * var(--px));
 }
 
-.detail--left .detail__art > i {
-  font-size: calc(220 * var(--px));
+.detail--left .detail__art > :is(i, svg) {
+  font-size: min(calc(220 * var(--px)), 82cqh);
 }
 
 /* The heart well gets a heart-red glow instead of the plain dark well. */

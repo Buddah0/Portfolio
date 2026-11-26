@@ -1,34 +1,42 @@
 import { test, expect } from '@playwright/test';
 
-const PREREQ = '[aria-controls="proj-prereq"]';
+const FEATURED = '[aria-controls="proj-oxtail"]';
 const POCKET = '[aria-controls="proj-pocket-mechanic"]';
 
 test.beforeEach(async ({ page, context }) => {
-  // Never hit the real GitHub from tests.
-  await context.route('https://github.com/**', (route) => route.fulfill({ status: 200, contentType: 'text/html', body: '<title>stub</title>' }));
+  // Never hit the real GitHub / GitHub Pages from tests.
+  await context.route(/^https:\/\/(github\.com|buddah0\.github\.io)\//, (route) => route.fulfill({ status: 200, contentType: 'text/html', body: '<title>stub</title>' }));
   await page.goto('./#items');
 });
 
 test('pane title follows the cursor', async ({ page }) => {
-  await expect(page.locator('.detail__item:visible .detail__title')).toHaveText('College Prerequisite Validator AI');
+  await expect(page.locator('.detail__item:visible .detail__title')).toHaveText('An Oxtail’s Journey');
   await page.locator(POCKET).focus();
   await expect(page.locator('.detail__item:visible .detail__title')).toHaveText('Pocket Mechanic');
   await expect(page.locator('.detail__item:visible')).toHaveCount(1);
 });
 
 test('Select steps into the project link, Enter opens it, Esc comes back', async ({ page, context }) => {
-  await page.locator(PREREQ).focus();
+  await page.locator(FEATURED).focus();
   await page.keyboard.press('Enter');
-  const link = page.locator('#proj-prereq .detail__link');
-  await expect(link).toBeFocused();
+  const live = page.locator('#proj-oxtail .detail__link').first();
+  await expect(live).toBeFocused();
 
   const [popup] = await Promise.all([context.waitForEvent('page'), page.keyboard.press('Enter')]);
   await popup.waitForLoadState();
-  expect(popup.url()).toBe('https://github.com/Buddah0/Prereq-College-Validation-Ai');
+  expect(popup.url()).toBe('https://buddah0.github.io/oxtail-journey/');
   await popup.close();
 
+  // Tab reaches the second link (the repo) too.
+  await page.keyboard.press('Tab');
+  await expect(page.locator('#proj-oxtail .detail__link').nth(1)).toBeFocused();
+  const [repo] = await Promise.all([context.waitForEvent('page'), page.keyboard.press('Enter')]);
+  await repo.waitForLoadState();
+  expect(repo.url()).toBe('https://github.com/Buddah0/oxtail-journey');
+  await repo.close();
+
   await page.keyboard.press('Escape');
-  await expect(page.locator(PREREQ)).toBeFocused();
+  await expect(page.locator(FEATURED)).toBeFocused();
 });
 
 test('Select on a project without a link keeps focus on the slot', async ({ page }) => {
@@ -45,7 +53,7 @@ test('prompts and shoulder glyphs switch between pointer and keyboard', async ({
   await expect(page.locator('.shoulder[data-step="-1"] .glyph-pad')).toBeVisible();
   await expect(page.locator('.shoulder[data-step="-1"] .glyph-key')).toBeHidden();
 
-  await page.locator(PREREQ).focus();
+  await page.locator(FEATURED).focus();
   await page.keyboard.press('ArrowLeft');
   await expect(page.locator('body')).toHaveAttribute('data-input', 'keyboard');
   await expect(prompts).toContainText('Enter');
@@ -54,14 +62,14 @@ test('prompts and shoulder glyphs switch between pointer and keyboard', async ({
   await expect(page.locator('.shoulder[data-step="-1"] .glyph-key')).toBeVisible();
 
   // Context: inside the pane the hints change to Open / Back.
-  await page.locator(PREREQ).focus();
+  await page.locator(FEATURED).focus();
   await page.keyboard.press('Enter');
   await expect(prompts).toContainText('Open');
   await expect(prompts).not.toContainText('Move');
 });
 
 test('dragging the art rotates it; a new cursor resets it', async ({ page }) => {
-  const art = page.locator('#proj-prereq .detail__art');
+  const art = page.locator('#proj-oxtail .detail__art');
   const glyph = art.locator('i');
   const box = await art.boundingBox();
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
@@ -72,7 +80,7 @@ test('dragging the art rotates it; a new cursor resets it', async ({ page }) => 
   expect(parseFloat(ry)).toBeCloseTo(60, 0);
 
   await page.locator(POCKET).focus();
-  await page.locator(PREREQ).focus();
+  await page.locator(FEATURED).focus();
   expect(await glyph.evaluate((el) => el.style.getPropertyValue('--ry'))).toBe('');
 });
 
@@ -80,7 +88,7 @@ test.describe('reduced motion', () => {
   test.use({ reducedMotion: 'reduce' });
 
   test('art does not float or rotate', async ({ page }) => {
-    const art = page.locator('#proj-prereq .detail__art');
+    const art = page.locator('#proj-oxtail .detail__art');
     const glyph = art.locator('i');
     expect(await glyph.evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
     const box = await art.boundingBox();
@@ -92,6 +100,6 @@ test.describe('reduced motion', () => {
   });
 
   test('cursor glow does not pulse', async ({ page }) => {
-    expect(await page.locator(PREREQ).evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
+    expect(await page.locator(FEATURED).evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
   });
 });
