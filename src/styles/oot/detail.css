@@ -1,0 +1,204 @@
+/* Detail pane (right side of item screens) and the prompt bar. */
+.detail__item {
+  position: absolute;
+  inset: calc(140 * var(--px)) calc(60 * var(--px)) calc(122 * var(--px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.detail__item[hidden] {
+  display: none;
+}
+
+/* ---------- Art: big metallic glyph under a soft spotlight; drag to rotate ---------- */
+.detail__art {
+  position: relative;
+  flex: 0 0 calc(270 * var(--px));
+  width: 100%;
+  display: grid;
+  place-items: center;
+  perspective: calc(900 * var(--px));
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.detail__art::before {
+  content: '';
+  position: absolute;
+  inset: 8% 22%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(120 150 220 / 0.22), transparent);
+  pointer-events: none;
+}
+
+.detail__art.is-dragging {
+  cursor: grabbing;
+}
+
+.detail__art > i {
+  font-size: calc(180 * var(--px));
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  filter: drop-shadow(0 calc(10 * var(--px)) calc(10 * var(--px)) rgb(0 0 0 / 0.8));
+  animation: art-float 5s ease-in-out infinite;
+}
+
+.detail__art.is-dragging > i,
+.detail__art.was-dragged > i {
+  animation: none;
+}
+
+.detail__art > i::before {
+  background: linear-gradient(160deg, #ffffff 0%, #e4eaf0 28%, #93a1ad 52%, #eef2f5 70%, #6f7b86 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes art-float {
+  0%, 100% { translate: 0 0; rotate: y -8deg; }
+  50% { translate: 0 calc(-10 * var(--px)); rotate: y 8deg; }
+}
+
+/* ---------- Text ---------- */
+.detail__title {
+  margin: calc(6 * var(--px)) 0 0;
+  font-size: calc(46 * var(--px));
+  font-weight: var(--fw-title);
+  letter-spacing: var(--ls-title);
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: var(--text-shadow);
+}
+
+.detail__rule {
+  width: 82%;
+  margin-top: calc(8 * var(--px));
+}
+
+.detail__meta {
+  margin: calc(4 * var(--px)) 0 calc(10 * var(--px));
+  font-size: calc(22 * var(--px));
+  color: var(--text-dim);
+  text-shadow: var(--text-shadow);
+}
+
+.detail__body {
+  width: 88%;
+  min-height: 0;
+  overflow: auto;
+  font-size: calc(23 * var(--px));
+  line-height: 1.3;
+  text-shadow: var(--text-shadow);
+  scrollbar-width: thin;
+  scrollbar-color: #6f7fa3 transparent;
+}
+
+.detail__body p {
+  margin: 0 0 calc(10 * var(--px));
+}
+
+.detail__body ul {
+  margin: 0 0 calc(10 * var(--px));
+  padding-left: calc(28 * var(--px));
+  text-align: left;
+}
+
+.detail__body li {
+  margin-bottom: calc(4 * var(--px));
+}
+
+.detail__body strong {
+  color: #fff;
+  font-weight: var(--fw-title);
+}
+
+/* Framed button for the project link (A = open). */
+.detail__link {
+  margin-top: calc(14 * var(--px));
+  display: inline-flex;
+  align-items: center;
+  gap: calc(10 * var(--px));
+  padding: calc(10 * var(--px)) calc(28 * var(--px));
+  border: calc(2 * var(--px)) solid #d7a85e;
+  border-radius: calc(6 * var(--px));
+  background: linear-gradient(#6e4c2c, #4a321c);
+  box-shadow: inset 0 0 0 calc(2 * var(--px)) #2a190c, 0 calc(3 * var(--px)) calc(6 * var(--px)) rgb(0 0 0 / 0.6);
+  color: var(--text);
+  font-size: calc(26 * var(--px));
+  font-weight: var(--fw-tab);
+  text-decoration: none;
+  text-shadow: var(--text-shadow);
+}
+
+.detail__link:hover {
+  border-color: #f2c76a;
+  color: #fff;
+}
+
+.detail__link:focus-visible {
+  outline: none;
+  border-color: var(--cursor);
+  box-shadow: 0 0 calc(8 * var(--px)) calc(2 * var(--px)) var(--cursor-glow), inset 0 0 0 calc(2 * var(--px)) #2a190c;
+}
+
+/* ---------- Prompt bar (bottom right) ---------- */
+.prompts {
+  position: absolute;
+  right: calc(150 * var(--px));
+  bottom: calc(40 * var(--px));
+  z-index: 6;
+  display: flex;
+  gap: calc(34 * var(--px));
+  padding: calc(8 * var(--px)) calc(26 * var(--px));
+  border-radius: calc(4 * var(--px));
+  background: linear-gradient(90deg, transparent, var(--prompt-bg) 12%, var(--prompt-bg));
+  font-size: calc(28 * var(--px));
+  font-weight: var(--fw-tab);
+  color: #fff;
+  text-shadow: var(--text-shadow);
+  pointer-events: none;
+}
+
+.prompt {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(10 * var(--px));
+}
+
+/* Key caps: round for actions, rounded-square for letters/keys, like the controller glyphs. */
+.cap {
+  display: inline-grid;
+  place-items: center;
+  min-width: calc(30 * var(--px));
+  height: calc(30 * var(--px));
+  padding: 0 calc(7 * var(--px));
+  border-radius: calc(15 * var(--px));
+  background: linear-gradient(#ffffff, #dadada);
+  color: #6d6d6d;
+  font: 700 calc(16 * var(--px)) / 1 system-ui, sans-serif;
+  text-shadow: none;
+  box-shadow: 0 calc(1 * var(--px)) calc(2 * var(--px)) rgb(0 0 0 / 0.6);
+}
+
+.cap .fa-solid {
+  font-size: calc(17 * var(--px));
+}
+
+/* Shoulder chips show L/R for pointer users and Q/E once the keyboard is used. */
+.shoulder .glyph-key,
+[data-input='keyboard'] .shoulder .glyph-pad {
+  display: none;
+}
+
+[data-input='keyboard'] .shoulder .glyph-key {
+  display: inline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail__art > i {
+    animation: none;
+  }
+}

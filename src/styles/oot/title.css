@@ -1,0 +1,156 @@
+/* Title screen: original landscape, gold wordmark, Continue / New Game / Contact. */
+.title-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+  background: #27356b url('../../assets/oot/title-landscape.svg') center / cover no-repeat;
+}
+
+.title-screen[hidden] {
+  display: none;
+}
+
+/* Before JS runs: show the title if no screen was linked (set by an inline script in <head>). */
+.show-title .title-screen[hidden] {
+  display: block;
+}
+
+/* Slow drifting light over the field. */
+.title-screen::before {
+  content: '';
+  position: absolute;
+  inset: -10%;
+  background: radial-gradient(ellipse 40% 30% at 68% 42%, rgb(255 244 214 / 0.35), transparent 70%);
+  animation: title-light 12s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes title-light {
+  from { transform: translate(-2%, 1%) scale(1); }
+  to { transform: translate(2%, -1%) scale(1.06); }
+}
+
+/* ---------- Wordmark ---------- */
+.title-logo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(250 * var(--px));
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: var(--fw-heavy);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.title-logo > span {
+  background: linear-gradient(180deg, #fff7cf 0%, #f8d763 32%, #d79c24 58%, #f3c64d 74%, #97600f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter:
+    drop-shadow(0 0 calc(1.5 * var(--px)) #3a1e05)
+    drop-shadow(0 0 calc(1.5 * var(--px)) #3a1e05)
+    drop-shadow(0 calc(6 * var(--px)) calc(8 * var(--px)) rgb(0 0 0 / 0.55));
+}
+
+.title-logo__pre {
+  font-size: calc(40 * var(--px));
+  letter-spacing: 0.28em;
+}
+
+.title-logo__name {
+  margin-top: calc(6 * var(--px));
+  font-size: calc(200 * var(--px));
+  letter-spacing: 0.02em;
+}
+
+.title-logo__sub {
+  margin-top: calc(18 * var(--px));
+  font-size: calc(42 * var(--px));
+  letter-spacing: 0.1em;
+}
+
+/* ---------- Menu ---------- */
+.title-menu {
+  position: absolute;
+  left: 50%;
+  top: calc(720 * var(--px));
+  translate: -50% 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(12 * var(--px));
+}
+
+.title-menu__item {
+  position: relative;
+  min-width: calc(300 * var(--px));
+  padding: calc(6 * var(--px)) calc(40 * var(--px));
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: calc(36 * var(--px));
+  font-weight: var(--fw-tab);
+  text-shadow: 0 calc(2 * var(--px)) calc(3 * var(--px)) rgb(0 0 0 / 0.85), 0 0 calc(10 * var(--px)) rgb(0 0 0 / 0.5);
+  cursor: pointer;
+}
+
+.title-menu__item:focus-visible {
+  outline: none;
+}
+
+/* Selected: blue pill with gold flourishes either side. */
+.title-menu__item.is-cursor {
+  background: linear-gradient(180deg, #7ea2f5, #4c74d8 55%, #3558b5);
+  box-shadow: 0 0 0 calc(2 * var(--px)) rgb(255 255 255 / 0.7), 0 0 calc(18 * var(--px)) rgb(90 140 240 / 0.8);
+}
+
+.title-menu__item.is-cursor::before,
+.title-menu__item.is-cursor::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: calc(46 * var(--px));
+  height: calc(30 * var(--px));
+  translate: 0 -50%;
+  background: #f0c04f;
+  -webkit-mask: url('../../assets/oot/divider-end.svg') no-repeat center / contain;
+  mask: url('../../assets/oot/divider-end.svg') no-repeat center / contain;
+  filter: drop-shadow(0 calc(1 * var(--px)) calc(1 * var(--px)) rgb(0 0 0 / 0.8));
+}
+
+.title-menu__item.is-cursor::before {
+  right: calc(100% + 10 * var(--px));
+}
+
+.title-menu__item.is-cursor::after {
+  left: calc(100% + 10 * var(--px));
+  transform: scaleX(-1);
+}
+
+.title-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(990 * var(--px));
+  margin: 0;
+  text-align: center;
+  font-size: calc(26 * var(--px));
+  color: #fff7e6;
+  text-shadow: 0 calc(2 * var(--px)) calc(3 * var(--px)) rgb(0 0 0 / 0.85);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title-screen::before {
+    animation: none;
+  }
+}

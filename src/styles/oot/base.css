@@ -1,0 +1,85 @@
+/* Base layout for the OOT-Remake menu: a 16:9 stage that scales with the viewport. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: #000;
+}
+
+body.oot {
+  font-family: var(--font-ui);
+  font-weight: var(--fw-body);
+  color: var(--text);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The stage: 1920x1080 design canvas, letterboxed to fit the viewport. */
+.menu {
+  position: relative;
+  width: calc(1920 * var(--px));
+  height: calc(1080 * var(--px));
+  margin: 0 auto;
+  top: 50%;
+  translate: 0 -50%;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 55%, #2a1610 0%, #120906 70%, #070403 100%);
+}
+
+.screens {
+  position: absolute;
+  inset: 0;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+}
+
+.screen[hidden] {
+  display: none;
+}
+
+.screen:focus-visible {
+  outline: none;
+}
+
+/* Temporary layout for screens that haven't been rebuilt yet. */
+.placeholder {
+  position: absolute;
+  inset: calc(190 * var(--px)) calc(120 * var(--px)) calc(110 * var(--px));
+  padding: calc(40 * var(--px)) calc(60 * var(--px));
+  font-size: calc(30 * var(--px));
+  line-height: 1.4;
+  overflow: auto;
+  text-shadow: var(--text-shadow);
+}
+
+.placeholder a {
+  color: var(--text);
+}
+
+.screen-title {
+  margin: 0 0 calc(16 * var(--px));
+  font-size: calc(56 * var(--px));
+  font-weight: var(--fw-title);
+  letter-spacing: var(--ls-title);
+}

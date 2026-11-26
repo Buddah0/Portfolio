@@ -1,0 +1,155 @@
+/* Item slots: recessed wells with a bevelled rim, cut to game-like shapes.
+   Structure: .slot (unclipped, carries the glow filter) > ::before (rim) + ::after (well) + .slot__icon.
+   A drop-shadow on the unclipped parent follows the clipped children, so the cursor glow keeps the slot's shape. */
+.slot {
+  --c: calc(26 * var(--px));         /* chamfer size */
+  --rim: calc(5 * var(--px));
+  --shape: polygon(var(--c) 0, calc(100% - var(--c)) 0, 100% var(--c), 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, var(--c) 100%, 0 calc(100% - var(--c)), 0 var(--c));
+  --rim-bg: linear-gradient(150deg, var(--slot-rim-hi), var(--slot-rim) 45%, var(--slot-rim-lo));
+  --well-bg: radial-gradient(ellipse 75% 70% at 50% 45%, var(--slot-bg-hi), var(--slot-bg) 70%, #120b07);
+
+  position: absolute;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  isolation: isolate;
+  transition: filter var(--dur-fast);
+}
+
+.slot::before,
+.slot::after {
+  content: '';
+  position: absolute;
+  clip-path: var(--shape);
+  transition: background var(--dur-fast), inset var(--dur-fast);
+}
+
+.slot::before {
+  inset: 0;
+  z-index: -2;
+  background: var(--rim-bg);
+}
+
+.slot::after {
+  inset: var(--rim);
+  z-index: -1;
+  background: var(--well-bg);
+  box-shadow: inset 0 calc(6 * var(--px)) calc(14 * var(--px)) rgb(0 0 0 / 0.7);
+}
+
+/* ---------- Shapes ---------- */
+.slot--hex { --shape: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); }
+.slot--hex-tall { --shape: polygon(50% 0, 100% 24%, 100% 76%, 50% 100%, 0 76%, 0 24%); }
+.slot--shield { --shape: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%); }
+.slot--round { --shape: circle(50% at 50% 50%); }
+.slot--house { --shape: polygon(50% 0, 100% 22%, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, var(--c) 100%, 0 calc(100% - var(--c)), 0 22%); --c: calc(14 * var(--px)); }
+.slot--tall { --c: calc(14 * var(--px)); }
+.slot--heart { --shape: polygon(50.0% 23.9%, 50.2% 22.2%, 51.5% 17.5%, 54.7% 11.3%, 60.2% 5.2%, 67.7% 1.0%, 76.5% 0.0%, 85.4% 2.7%, 93.0% 8.7%, 98.2% 17.3%, 100.0% 27.3%, 98.2% 37.7%, 93.0% 47.7%, 85.4% 57.2%, 76.5% 66.0%, 67.7% 74.4%, 60.2% 82.3%, 54.7% 89.3%, 51.5% 95.0%, 50.2% 98.7%, 50.0% 100.0%, 49.8% 98.7%, 48.5% 95.0%, 45.3% 89.3%, 39.8% 82.3%, 32.3% 74.4%, 23.5% 66.0%, 14.6% 57.2%, 7.0% 47.7%, 1.8% 37.7%, 0.0% 27.3%, 1.8% 17.3%, 7.0% 8.7%, 14.6% 2.7%, 23.5% 0.0%, 32.3% 1.0%, 39.8% 5.2%, 45.3% 11.3%, 48.5% 17.5%, 49.8% 22.2%); }
+.slot--square { --c: calc(18 * var(--px)); }
+.slot--pill { --shape: polygon(var(--c) 0, 100% 0, 100% 100%, var(--c) 100%, 0 50%); }
+.slot--chevron { --shape: polygon(0 0, 58% 0, 100% 50%, 58% 100%, 0 100%, 34% 50%); }
+.slot--feature {
+  --c: calc(18 * var(--px));
+  --shape: polygon(26% 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 74%, 74% 100%, var(--c) 100%, 0 calc(100% - var(--c)), 0 26%);
+}
+
+/* ---------- Icon ---------- */
+.slot__icon {
+  position: relative;
+  font-size: calc(110 * var(--px));
+  line-height: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 calc(5 * var(--px)) calc(4 * var(--px)) rgb(0 0 0 / 0.75));
+}
+
+/* Metallic look for icon-font glyphs, echoing the silver item renders. */
+.slot__icon::before {
+  background: linear-gradient(160deg, #ffffff 0%, #dfe6ec 30%, #9aa7b2 55%, #e9eef2 72%, #7d8893 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.slot--small .slot__icon { font-size: calc(64 * var(--px)); }
+
+/* Glowing medallion wells (magenta light behind the icon). */
+.slot.is-glow {
+  --well-bg: radial-gradient(circle at 50% 50%, #f0a6dc 0%, #b4529d 20%, #6b2862 42%, #2c1222 70%, #150a0e);
+}
+
+.slot.is-glow.is-equipped {
+  --well-bg: radial-gradient(circle at 50% 50%, #ffe08a 0%, var(--equipped-hi) 30%, var(--equipped) 60%, var(--equipped-lo));
+}
+
+/* Count badge: bottom-right inside the slot, or centred below it. Green when maxed / highlighted. */
+.slot__count {
+  position: absolute;
+  right: 10%;
+  bottom: 4%;
+  font-size: calc(42 * var(--px));
+  font-weight: var(--fw-heavy);
+  line-height: 1;
+  color: var(--count);
+  -webkit-text-stroke: calc(5 * var(--px)) #1a0f06;
+  paint-order: stroke fill;
+  text-shadow: 0 calc(3 * var(--px)) calc(3 * var(--px)) rgb(0 0 0 / 0.6);
+  pointer-events: none;
+}
+
+.slot__count.is-max {
+  color: var(--count-max);
+}
+
+.slot__count--below {
+  right: auto;
+  left: 50%;
+  bottom: calc(-62 * var(--px));
+  translate: -50% 0;
+  font-size: calc(52 * var(--px));
+}
+
+/* ---------- States ---------- */
+/* Equipped / in progress: gold well. */
+.slot.is-equipped {
+  --well-bg: radial-gradient(ellipse 80% 75% at 45% 40%, var(--equipped-hi), var(--equipped) 60%, var(--equipped-lo));
+}
+
+/* Locked: an empty, darker well; decorative only. */
+.slot.is-locked {
+  cursor: default;
+  --well-bg: radial-gradient(ellipse 75% 70% at 50% 45%, #241912, #150e09 75%);
+  --rim-bg: linear-gradient(150deg, #8a6a46, #6b4f31 45%, #3a2715);
+}
+
+/* Cursor: thick white rim + pulsing blue glow. */
+.slot.is-cursor {
+  --rim: calc(8 * var(--px));
+  --rim-bg: linear-gradient(#ffffff, #f3f7ff);
+  z-index: 2;
+  animation: slot-glow 1.6s ease-in-out infinite;
+}
+
+.slot:focus-visible {
+  outline: none;
+}
+
+@keyframes slot-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 calc(5 * var(--px)) var(--cursor-glow)) drop-shadow(0 0 calc(12 * var(--px)) var(--cursor-glow-soft));
+  }
+  50% {
+    filter: drop-shadow(0 0 calc(8 * var(--px)) var(--cursor-glow)) drop-shadow(0 0 calc(20 * var(--px)) var(--cursor-glow-soft));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slot.is-cursor {
+    animation: none;
+    filter: drop-shadow(0 0 calc(6 * var(--px)) var(--cursor-glow)) drop-shadow(0 0 calc(14 * var(--px)) var(--cursor-glow-soft));
+  }
+}

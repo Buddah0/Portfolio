@@ -1,0 +1,96 @@
+/* Slot boards (shared by item screens) + the Items (Projects) screen.
+   Children carry their position in stage design px (--x, --y, --w, --h), measured from the reference;
+   a board offsets them by its own origin (--ox, --oy). */
+.slot-board {
+  --ox: 0;
+  --oy: 0;
+}
+
+.slot-board > .slot,
+.slot-board > .rule,
+.slot-board > .board__vine,
+.slot-board > .deco {
+  position: absolute;
+  left: calc((var(--x) - var(--ox)) * var(--px));
+  top: calc((var(--y) - var(--oy)) * var(--px));
+}
+
+.slot-board > .slot,
+.slot-board > .deco {
+  width: calc(var(--w) * var(--px));
+  height: calc(var(--h) * var(--px));
+}
+
+.slot-board > .rule {
+  width: calc(var(--w) * var(--px));
+  --rule-color: #d7a85e;
+  opacity: 0.9;
+}
+
+/* Embossed vine running down between slot groups. */
+.board__vine--v {
+  width: calc(var(--len) * var(--px));
+  height: calc(64 * var(--px));
+  background: url('../../assets/oot/vine-band.svg') repeat-x center / auto 100%;
+  opacity: 0.38;
+  transform-origin: 0 0;
+  transform: rotate(90deg) translateY(-50%);
+  pointer-events: none;
+}
+
+/* Page arrows at the board edges (mouse shortcut for L / R). */
+/* The whole box is clickable; the chevron is drawn by ::before. */
+.page-arrow {
+  position: absolute;
+  z-index: 3;
+  width: calc(34 * var(--px));
+  height: calc(52 * var(--px));
+  padding: 0;
+  border: 0;
+  background: none;
+  filter: drop-shadow(0 calc(2 * var(--px)) calc(2 * var(--px)) rgb(0 0 0 / 0.6));
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.page-arrow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #f1e2c2;
+  clip-path: polygon(100% 0, 30% 50%, 100% 100%, 0 50%);
+}
+
+.page-arrow--next::before {
+  transform: scaleX(-1);
+}
+
+.page-arrow:hover {
+  opacity: 1;
+}
+
+.page-arrow:hover::before {
+  background: #fff;
+}
+
+/* ---------- Items board ---------- */
+.board {
+  --ox: 24;
+  --oy: 128;
+  position: absolute;
+  left: calc(var(--ox) * var(--px));
+  top: calc(var(--oy) * var(--px));
+  width: calc(1052 * var(--px));
+  height: calc(926 * var(--px));
+  border-radius: 0 0 calc(10 * var(--px)) calc(10 * var(--px));
+}
+
+/* ---------- Detail pane ---------- */
+.detail {
+  position: absolute;
+  left: calc(1076 * var(--px));
+  top: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: inset calc(14 * var(--px)) 0 calc(24 * var(--px)) rgb(0 0 0 / 0.6);
+}

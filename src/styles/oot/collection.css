@@ -1,0 +1,53 @@
+/* Collection (About) screen: detail pane on the left, collectibles board on the right. */
+.board--collection {
+  --ox: 890;
+  --oy: 128;
+  width: calc(1030 * var(--px));
+  height: calc(904 * var(--px));
+  border-radius: 0 0 0 calc(10 * var(--px));
+}
+
+/* Ornamental bands along the top and bottom of the board. */
+.board--collection::before,
+.board--collection::after {
+  content: '';
+  position: absolute;
+  left: calc(20 * var(--px));
+  right: calc(20 * var(--px));
+  height: calc(70 * var(--px));
+  background: url('../../assets/oot/vine-band.svg') repeat-x center / auto 100%;
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+.board--collection::before {
+  top: calc(6 * var(--px));
+}
+
+.board--collection::after {
+  bottom: calc(2 * var(--px));
+}
+
+.detail--left {
+  left: 0;
+  right: auto;
+  width: calc(890 * var(--px));
+  box-shadow: inset calc(-14 * var(--px)) 0 calc(24 * var(--px)) rgb(0 0 0 / 0.6);
+}
+
+.detail--left .detail__item {
+  inset: calc(150 * var(--px)) calc(90 * var(--px)) calc(130 * var(--px));
+}
+
+.detail--left .detail__art {
+  flex-basis: calc(330 * var(--px));
+}
+
+.detail--left .detail__art > i {
+  font-size: calc(220 * var(--px));
+}
+
+/* The heart well gets a heart-red glow instead of the plain dark well. */
+.slot--heart:not(.is-equipped) {
+  --well-bg: radial-gradient(ellipse 70% 60% at 50% 40%, #6a1f22, #2c1012 65%, #170a0a);
+}
